@@ -1,0 +1,25 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
+  "files": [],
+  "references": [
+    {
+      "path": "./libs/wheel-engine"
+    },
+    {
+      "path": "./libs/shared-ui"
+    },
+    {
+      "path": "./libs/audio-system"
+    },
+    {
+      "path": "./libs/history-tracker"
+    },
+    {
+      "path": "./apps/tooli-e2e"
+    },
+    {
+      "path": "./apps/tooli"
+    }
+  ]
+}
