@@ -111,9 +111,9 @@ export const WheelCanvas: React.FC<WheelCanvasProps> = ({
 
     // Draw pointer (positioned at top, pointing down)
     ctx.beginPath();
-    ctx.moveTo(centerX, centerY - radius - 15);
-    ctx.lineTo(centerX - 15, centerY - radius + 15);
-    ctx.lineTo(centerX + 15, centerY - radius + 15);
+    ctx.moveTo(centerX, centerY - radius + 15);
+    ctx.lineTo(centerX - 15, centerY - radius - 15);
+    ctx.lineTo(centerX + 15, centerY - radius - 15);
     ctx.closePath();
     ctx.fillStyle = '#FF6B6B';
     ctx.fill();

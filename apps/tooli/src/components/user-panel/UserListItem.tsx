@@ -19,6 +19,7 @@ export const UserListItem: React.FC<UserListItemProps> = ({
     user.customWeight?.toString() || ''
   );
   const [nameValue, setNameValue] = useState(user.name);
+  const [isEditingWeight, setIsEditingWeight] = useState(false);
 
   const handleToggleParticipation = () => {
     userManager.toggleUserParticipation(user.id);
@@ -29,7 +30,13 @@ export const UserListItem: React.FC<UserListItemProps> = ({
     setWeightValue(e.target.value);
   };
 
+  const handleWeightFocus = () => {
+    setIsEditingWeight(true);
+    setWeightValue(user.customWeight?.toString() || '');
+  };
+
   const handleWeightBlur = () => {
+    setIsEditingWeight(false);
     const weight = parseFloat(weightValue);
     if (!isNaN(weight) && weight >= 0 && weight <= 100) {
       userManager.updateUserWeight(user.id, weight);
@@ -119,13 +126,18 @@ export const UserListItem: React.FC<UserListItemProps> = ({
             type="number"
             size="sm"
             placeholder="Weight"
-            value={weightValue}
+            value={
+              isEditingWeight
+                ? weightValue
+                : userManager.getCalculatedWeight(user.id).toFixed(1)
+            }
             onChange={handleWeightChange}
+            onFocus={handleWeightFocus}
             onBlur={handleWeightBlur}
             style={{ width: '80px' }}
             min={0}
             max={100}
-            step={1}
+            step={0.1}
           />
           <span
             style={{

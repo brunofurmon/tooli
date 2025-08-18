@@ -191,6 +191,18 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
             zIndex: 1000,
           }}
         >
+          {/* Page opacity overlay */}
+          <div
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              zIndex: -1,
+            }}
+          />
           <div
             style={{
               backgroundColor: 'var(--nextui-colors-background)',
@@ -201,8 +213,6 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
               position: 'relative',
               textAlign: 'center',
               boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
-              backdropFilter: 'blur(10px)',
-              border: '1px solid var(--nextui-colors-divider)',
             }}
           >
             {/* Close button */}

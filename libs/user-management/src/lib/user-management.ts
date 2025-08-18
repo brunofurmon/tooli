@@ -134,6 +134,51 @@ export class UserManager {
     return this.users.filter((user) => user.isChecked).length;
   }
 
+  // Get calculated weight for a user (for display purposes)
+  getCalculatedWeight(userId: string): number {
+    const user = this.users.find((u) => u.id === userId);
+    if (!user || !user.isChecked) return 0;
+
+    const activeUsers = this.users.filter((u) => u.isChecked);
+    if (activeUsers.length === 0) return 0;
+
+    // If user has custom weight, return it (normalized if needed)
+    if (user.customWeight !== undefined && user.customWeight > 0) {
+      const usersWithCustomWeights = activeUsers.filter(
+        (u) => u.customWeight !== undefined && u.customWeight > 0
+      );
+      const totalCustomWeight = usersWithCustomWeights.reduce(
+        (sum, u) => sum + (u.customWeight || 0),
+        0
+      );
+
+      if (totalCustomWeight > 100) {
+        return (user.customWeight || 0) * (100 / totalCustomWeight);
+      }
+      return user.customWeight;
+    }
+
+    // If no custom weight, calculate equal distribution
+    const usersWithCustomWeights = activeUsers.filter(
+      (u) => u.customWeight !== undefined && u.customWeight > 0
+    );
+    const usersWithoutCustomWeights = activeUsers.filter(
+      (u) => u.customWeight === undefined || u.customWeight === 0
+    );
+
+    const totalCustomWeight = usersWithCustomWeights.reduce(
+      (sum, u) => sum + (u.customWeight || 0),
+      0
+    );
+    const normalizedTotalWeight =
+      totalCustomWeight > 100 ? 100 : totalCustomWeight;
+    const remainingWeight = Math.max(0, 100 - normalizedTotalWeight);
+
+    return usersWithoutCustomWeights.length > 0
+      ? remainingWeight / usersWithoutCustomWeights.length
+      : 100 / activeUsers.length;
+  }
+
   // Wheel integration
   getWheelSegments(): WheelSegment[] {
     const activeUsers = this.users.filter((user) => user.isChecked);
