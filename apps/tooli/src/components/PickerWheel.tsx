@@ -19,33 +19,33 @@ export interface PickerWheelProps {
 const calculateResultFromPosition = (rotation: number, segments: WheelSegment[]): WheelSegment => {
   // Normalize rotation to 0-360 degrees
   const normalizedRotation = ((rotation % 360) + 360) % 360;
-  
+
   // The pointer is at the TOP (270 degrees in canvas coordinates)
   // The wheel is drawn starting from currentRotation
   // We need to find which segment contains the position that's currently at the top (270 degrees)
-  
+
   // Convert canvas coordinates to wheel coordinates
   // In canvas: 0° = right, 90° = down, 180° = left, 270° = up (pointer position)
   // In wheel: 0° = first segment start, 90° = second segment, etc.
-  
+
   // The pointer is at 270° in canvas coords, so we need to find what's at 270° relative to the wheel
   const pointerAngle = 270; // Pointer is at top (270° in canvas)
   const wheelAngle = (pointerAngle - normalizedRotation + 360) % 360;
-  
+
   let currentAngle = 0;
-  
+
   for (const segment of segments) {
     const segmentAngle = segment.probability * 360; // Convert probability to degrees
     const endAngle = currentAngle + segmentAngle;
-    
+
     // Check if the pointer position falls within this segment
     if (wheelAngle >= currentAngle && wheelAngle < endAngle) {
       return segment;
     }
-    
+
     currentAngle = endAngle;
   }
-  
+
   // Fallback to first segment if no match found
   return segments[0] || { id: 'default', label: 'Default', probability: 1, color: '#cccccc' };
 };
@@ -323,8 +323,8 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
             <button
               onClick={handleCloseModal}
               style={{
-                backgroundColor: 'var(--nextui-colors-primary)',
-                color: 'white',
+                backgroundColor: '#0070f3',
+                color: '#ffffff',
                 border: 'none',
                 borderRadius: '8px',
                 padding: '12px 24px',

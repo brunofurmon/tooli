@@ -77,10 +77,21 @@ export class UserManager {
   toggleUserParticipation(id: string): void {
     const user = this.users.find((u) => u.id === id);
     if (user) {
+      const wasChecked = user.isChecked;
       user.isChecked = !user.isChecked;
       user.lastModified = new Date();
+      
+      console.log(`User ${user.name} participation toggled: ${wasChecked} → ${user.isChecked}`);
+      console.log(`Active users: ${this.getActiveUserCount()}`);
+      
       this.saveToStorage();
       this.notifyListeners();
+      
+      // Force immediate wheel update
+      setTimeout(() => {
+        console.log('Forcing wheel update after toggle');
+        this.notifyListeners();
+      }, 0);
     }
   }
 

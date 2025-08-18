@@ -1,6 +1,6 @@
 # 🎯 Tooli - productivity tools for humans
 
-A comprehensive platform designed for teams to make decisions, manage participants, track history, and analyze performance. Tooli provides an interactive spinning wheel with advanced user management and analytics capabilities.
+A comprehensive platform designed to enhance team productivity through intelligent decision-making tools. Tooli provides an interactive spinning wheel with advanced user management, real-time analytics, and seamless collaboration features.
 
 ## 🚀 Quick Start
 
@@ -31,11 +31,13 @@ The application will be available at `http://localhost:3000`
 ### 🎡 Interactive Spinning Wheel
 
 - **Route:** `/` (Home page)
-- **Dynamic Segments**: Automatically updates based on active users
+- **Dynamic Segments**: Automatically updates based on active users and their weights
 - **Custom Weights**: Set individual probabilities (0-100) for each participant
-- **Real-time Updates**: Wheel segments update instantly when users are added/removed
-- **Smooth Animations**: Engaging spinning experience with result display
+- **Real-time Updates**: Wheel segments update instantly when users are added/removed/toggled
+- **Smooth Animations**: Engaging 2-second spinning experience with result display
+- **Accurate Results**: Position-based calculation ensures visual position matches declared winner
 - **Fair Randomization**: Probability-based algorithms ensure fair selection
+- **Weight Redistribution**: Automatic recalculation when users are enabled/disabled
 
 ### 👥 User Management
 
@@ -68,6 +70,23 @@ The application will be available at `http://localhost:3000`
 - Comprehensive information about Tooli platform
 - Technology stack and architecture details
 - Feature overview and capabilities
+
+## 🆕 Latest Improvements (v1.2.0)
+
+### 🎯 Enhanced Accuracy
+- **Fixed Wheel Results**: Visual position now perfectly matches declared winner
+- **Coordinate System**: Proper mapping between canvas and wheel coordinates
+- **Position-Based Calculation**: Results determined by actual wheel position
+
+### 🎨 UI/UX Polish
+- **Consistent Modal**: Winner modal with stable white background and dark text
+- **Proper Contrast**: All text elements visible in both light and dark modes
+- **Smooth Animations**: Optimized 2-second spin duration for better experience
+
+### ⚡ Performance & Reliability
+- **Instant Response**: Eliminated delays in wheel spinning
+- **Real-time Updates**: Immediate weight redistribution when users are toggled
+- **Robust Synchronization**: Reliable state management and updates
 
 ## 🛠️ Development
 
