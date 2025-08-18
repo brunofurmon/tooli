@@ -58,6 +58,10 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
   isSpinning = false,
   pendingResult,
 }) => {
+  // Check if there are no active users (only default segments)
+  const hasNoActiveUsers = segments.length > 0 && segments.every(segment => 
+    segment.id === 'prize1' || segment.id === 'prize2' || segment.id === 'prize3' || segment.id === 'prize4'
+  );
   const [wheelEngine] = useState(() => {
     console.log('Initializing wheel engine with segments:', segments.length);
     return new WheelEngine({ segments });
@@ -83,7 +87,7 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
   }, [segments, wheelEngine]);
 
   const handleSpin = async () => {
-    if (isWheelSpinning || isSpinning) return;
+    if (isWheelSpinning || isSpinning || hasNoActiveUsers) return;
 
     console.log('Starting spin...');
     setIsWheelSpinning(true);
@@ -180,7 +184,7 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
             margin: '0 0 8px 0',
           }}
         >
-          🎡 Decision Wheel
+          {hasNoActiveUsers ? '🐕 Much Decision' : '🎡 Decision Wheel'}
         </h2>
         <p
           style={{
@@ -190,25 +194,79 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
             margin: 0,
           }}
         >
-          Click the wheel to spin and make a decision
+          {hasNoActiveUsers 
+            ? 'Enable some users to start making decisions!' 
+            : 'Click the wheel to spin and make a decision'
+          }
         </p>
       </div>
 
-      <div
-        onClick={handleSpin}
-        style={{
-          cursor: isWheelSpinning || isSpinning ? 'not-allowed' : 'pointer',
-          position: 'relative',
-        }}
-      >
-        <WheelCanvas
-          size={size}
-          segments={segments}
-          rotation={rotation}
-          onSpin={handleSpin}
-          isSpinning={isWheelSpinning || isSpinning}
-        />
-      </div>
+      {hasNoActiveUsers ? (
+        // Doge meme when no users are active
+        <div
+          style={{
+            width: size,
+            height: size,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#f0f0f0',
+            borderRadius: '12px',
+            border: '3px solid #333333',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            cursor: 'not-allowed',
+            position: 'relative',
+          }}
+        >
+          <div
+            style={{
+              fontSize: '64px',
+              marginBottom: '16px',
+            }}
+          >
+            🐕
+          </div>
+          <div
+            style={{
+              fontSize: '24px',
+              fontWeight: 'bold',
+              color: '#333333',
+              marginBottom: '8px',
+              textAlign: 'center',
+            }}
+          >
+            Much Empty
+          </div>
+          <div
+            style={{
+              fontSize: '16px',
+              color: '#666666',
+              textAlign: 'center',
+              maxWidth: '300px',
+            }}
+          >
+            Enable some users to start spinning!
+          </div>
+        </div>
+      ) : (
+        // Normal wheel when users are active
+        <div
+          onClick={handleSpin}
+          style={{
+            cursor: isWheelSpinning || isSpinning ? 'not-allowed' : 'pointer',
+            position: 'relative',
+          }}
+        >
+          <WheelCanvas
+            size={size}
+            segments={segments}
+            rotation={rotation}
+            onSpin={handleSpin}
+            isSpinning={isWheelSpinning || isSpinning}
+          />
+        </div>
+      )}
 
       {/* Winner Modal */}
       {showWinnerModal && result && (
