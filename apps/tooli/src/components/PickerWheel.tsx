@@ -15,6 +15,30 @@ export interface PickerWheelProps {
   pendingResult?: WheelSegment | null;
 }
 
+// Helper function to calculate result based on wheel position
+const calculateResultFromPosition = (rotation: number, segments: WheelSegment[]): WheelSegment => {
+  // Normalize rotation to 0-360 degrees
+  const normalizedRotation = ((rotation % 360) + 360) % 360;
+  
+  // The pointer is at the top (0 degrees), so we need to find which segment is at the top
+  let currentAngle = 0;
+  
+  for (const segment of segments) {
+    const segmentAngle = segment.probability * 360; // Convert probability to degrees
+    const endAngle = currentAngle + segmentAngle;
+    
+    // Check if the pointer (0 degrees) falls within this segment
+    if (normalizedRotation >= currentAngle && normalizedRotation < endAngle) {
+      return segment;
+    }
+    
+    currentAngle = endAngle;
+  }
+  
+  // Fallback to first segment if no match found
+  return segments[0] || { id: 'default', label: 'Default', probability: 1, color: '#cccccc' };
+};
+
 export const PickerWheel: React.FC<PickerWheelProps> = ({
   size,
   segments,
@@ -61,11 +85,7 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
     }
 
     try {
-      // Calculate result immediately without delay
-      const result = wheelEngine.calculateResult();
-      console.log('Spin result:', result);
-
-      // Animate the wheel
+      // Animate the wheel first
       const startRotation = rotation;
       const targetRotation = startRotation + 1440 + Math.random() * 360; // Multiple rotations + random
       const duration = 2000; // 2 seconds for slower spin
@@ -85,14 +105,17 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
         if (progress < 1) {
           animationRef.current = requestAnimationFrame(animate);
         } else {
-          // Spin completed
+          // Spin completed - calculate result based on final position
+          const finalRotation = currentRotation;
+          const result = calculateResultFromPosition(finalRotation, segments);
+          
           setIsWheelSpinning(false);
-          setResult(result.segment);
+          setResult(result);
           setShowWinnerModal(true);
 
           // Notify parent of result
           if (onSpinComplete) {
-            onSpinComplete(result.segment);
+            onSpinComplete(result);
           }
         }
       };

@@ -71,7 +71,7 @@ export const WheelCanvas: React.FC<WheelCanvasProps> = ({
     ctx.stroke();
 
     let currentAngle = currentRotation * (Math.PI / 180);
-    
+
     segments.forEach((segment, index) => {
       const segmentAngle = segment.probability * 2 * Math.PI;
       const startAngle = currentAngle;
@@ -98,7 +98,7 @@ export const WheelCanvas: React.FC<WheelCanvasProps> = ({
       ctx.font = 'bold 18px Arial';
       ctx.fillText(segment.label, radius * 0.7, 0);
       ctx.restore();
-      
+
       currentAngle = endAngle;
     });
 
