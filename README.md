@@ -1,6 +1,6 @@
-# 🎯 Tooli - Software Engineering Team Platform
+# 🎯 Tooli - Interactive Team Decision Platform
 
-A comprehensive platform designed specifically for software engineering teams to enhance their day-to-day productivity and collaboration. Tooli provides a suite of interactive tools that make development workflows more engaging and efficient.
+A comprehensive platform designed for teams to make decisions, manage participants, track history, and analyze performance. Tooli provides an interactive spinning wheel with advanced user management and analytics capabilities.
 
 ## 🚀 Quick Start
 
@@ -26,28 +26,48 @@ npm run wheel:dev
 
 The application will be available at `http://localhost:3000`
 
-## 🎮 Available Tools
+## 🎮 Features
 
-### Spinning Wheel (Available Now)
+### 🎡 Interactive Spinning Wheel
 
 - **Route:** `/` (Home page)
-- Interactive decision-making tool for team activities
-- Fair randomization with probability-based algorithms
-- Smooth animations and engaging user experience
-- Perfect for team building exercises and random selections
+- **Dynamic Segments**: Automatically updates based on active users
+- **Custom Weights**: Set individual probabilities (0-100) for each participant
+- **Real-time Updates**: Wheel segments update instantly when users are added/removed
+- **Smooth Animations**: Engaging spinning experience with result display
+- **Fair Randomization**: Probability-based algorithms ensure fair selection
 
-### About Platform (Available Now)
+### 👥 User Management
+
+- **Add/Remove Users**: Real-time user management with instant wheel updates
+- **Custom Weights**: Set individual probabilities for each participant
+- **Participation Toggle**: Enable/disable users without removing them from the list
+- **Real-time Editing**: Edit user names with instant updates
+- **Data Persistence**: All user data saved to localStorage
+- **Export/Import**: Backup and restore user data in JSON format
+
+### 📊 History Tracking
+
+- **Spin History**: Complete record of all spins with timestamps
+- **User Results**: Track individual user wins and performance
+- **Load More**: Collapsible history with "load more" functionality
+- **Real-time Updates**: History updates automatically after each spin
+- **Data Export**: Export complete history in JSON format
+
+### 📈 Analytics & Statistics
+
+- **Overall Statistics**: Total spins, most frequent winner, average probability
+- **User Performance**: Individual win rates and participation statistics
+- **Real-time Updates**: Analytics update automatically
+- **Data Management**: Export users and history data
+- **Performance Metrics**: Track team and individual performance over time
+
+### 📄 About Platform
 
 - **Route:** `/about`
 - Comprehensive information about Tooli platform
 - Technology stack and architecture details
-- Roadmap and upcoming features
-- Designed for software engineering teams
-
-### Coming Soon
-
-- **Scrum Poker:** Agile estimation tool for story point voting
-- **Dev Productivity Tools:** Time tracking, task management, and analytics
+- Feature overview and capabilities
 
 ## 🛠️ Development
 
@@ -57,21 +77,38 @@ The application will be available at `http://localhost:3000`
 apps/tooli/
 ├── src/
 │   ├── app/
-│   │   ├── page.tsx          # Home page (Spinning Wheel)
+│   │   ├── page.tsx                    # Home page (Spinning Wheel)
 │   │   ├── about/
-│   │   │   └── page.tsx      # About page
-│   │   └── layout.tsx        # Root layout
+│   │   │   └── page.tsx                # About page
+│   │   ├── api/
+│   │   │   └── health/
+│   │   │       └── route.ts            # Health check API
+│   │   └── layout.tsx                  # Root layout
 │   ├── components/
-│   │   ├── ui/               # Atomic UI components
+│   │   ├── ui/                         # Atomic UI components
 │   │   │   ├── Button.tsx
 │   │   │   └── Card.tsx
-│   │   ├── wheel/            # Wheel-specific components
+│   │   ├── wheel/                      # Wheel-specific components
 │   │   │   ├── WheelCanvas.tsx
 │   │   │   ├── WheelControls.tsx
 │   │   │   └── WheelResult.tsx
-│   │   ├── Navigation.tsx    # Route-based navigation
-│   │   └── PickerWheel.tsx   # Main wheel component
+│   │   ├── user-panel/                 # User management components
+│   │   │   ├── UserPanel.tsx
+│   │   │   ├── UserListItem.tsx
+│   │   │   └── AddUserInput.tsx
+│   │   ├── history-panel/              # History tracking components
+│   │   │   └── HistoryPanel.tsx
+│   │   ├── analytics-panel/            # Analytics components
+│   │   │   └── AnalyticsPanel.tsx
+│   │   ├── Navigation.tsx              # Route-based navigation
+│   │   └── PickerWheel.tsx             # Main wheel component
 │   └── ...
+libs/
+├── wheel-engine/                       # Core wheel logic
+├── user-management/                    # User data management
+├── history-tracker/                    # History tracking system
+├── shared-ui/                          # Shared UI components
+└── audio-system/                       # Audio system (planned)
 ```
 
 ### Available Scripts
@@ -86,6 +123,7 @@ npm run wheel:build        # Build the application
 npm run test               # Run all tests
 npm run test:affected      # Run tests for affected projects
 npm run test:coverage      # Run tests with coverage
+npm run test:health        # Run health check tests
 
 # Quality Assurance
 npm run lint               # Lint all projects
@@ -96,6 +134,11 @@ npm run typecheck          # TypeScript type checking
 npm run build              # Build main application
 npm run build:all          # Build all projects
 npm run build:affected     # Build affected projects
+
+# Health & Monitoring
+npm run health:check       # Check application health
+npm run health:monitor     # Monitor routes continuously
+npm run dev:monitored      # Development with monitoring
 
 # Utilities
 npm run clean              # Clean build artifacts
@@ -109,8 +152,9 @@ Tooli uses a modern monorepo architecture powered by Nx, providing:
 
 - **Atomic Design:** Components are broken down into single-responsibility atomic parts
 - **Route-based Navigation:** Clean URL structure with Next.js App Router
-- **Modular Components:** Reusable UI components in `components/ui/`
-- **Feature Organization:** Feature-specific components in dedicated directories
+- **Modular Libraries:** Separate libraries for wheel engine, user management, and history tracking
+- **Real-time Updates:** Event-driven architecture with subscription system
+- **Data Persistence:** localStorage-based persistence with export/import capabilities
 - **Type Safety:** Full TypeScript support throughout the application
 - **Performance:** Optimized builds and efficient caching
 
@@ -121,6 +165,7 @@ The project includes pre-commit hooks that automatically:
 - Lint staged files
 - Run tests for affected projects
 - Build affected projects
+- Perform health checks
 - Format code
 
 ## 🧪 Testing
@@ -134,6 +179,9 @@ npm run wheel:test
 
 # Run tests with coverage
 npm run test:coverage
+
+# Run health checks
+npm run test:health
 
 # Run E2E tests
 npm run e2e
@@ -152,6 +200,7 @@ npm run e2e
 - **Build System:** Nx Monorepo
 - **Testing:** Jest, Playwright
 - **Quality:** ESLint, Prettier, Husky
+- **Data Management:** localStorage with JSON export/import
 
 ## 🤝 Contributing
 
@@ -176,8 +225,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🗺️ Roadmap
 
 - [x] **Phase 1: Foundation** - Spinning Wheel tool
-- [ ] **Phase 2: Agile Tools** - Scrum Poker and estimation tools
-- [ ] **Phase 3: Productivity Suite** - Advanced productivity and analytics tools
+- [x] **Phase 2: User Management** - Add, edit, remove users with custom weights
+- [x] **Phase 3: History Tracking** - Complete spin history with analytics
+- [x] **Phase 4: Analytics** - Performance metrics and data management
+- [ ] **Phase 5: Advanced Features** - Scrum Poker, productivity tools
 
 ## 🆘 Support
 
@@ -185,4 +236,4 @@ For support and questions, please open an issue in the GitHub repository.
 
 ---
 
-Built with ❤️ for software engineering teams
+Built with ❤️ for teams that need fair and engaging decision-making tools
