@@ -1,29 +1,28 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "composite": true,
-    "declarationMap": true,
-    "emitDeclarationOnly": true,
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "importHelpers": true,
-    "isolatedModules": true,
-    "lib": ["es2022", "dom"],
+    "target": "es2015",
     "module": "esnext",
-    "moduleResolution": "bundler",
-    "noEmitOnError": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
+    "lib": ["es2020", "dom"],
     "skipLibCheck": true,
-    "strict": true,
-    "target": "es2022",
-    "customConditions": ["development"],
+    "skipDefaultLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "@tooli/audio-system": ["libs/audio-system/src/index.ts"],
+      "@tooli/wheel-engine": ["libs/wheel-engine/src/index.ts"],
+      "@tooli/user-management": ["libs/user-management/src/index.ts"],
       "@tooli/history-tracker": ["libs/history-tracker/src/index.ts"],
       "@tooli/shared-ui": ["libs/shared-ui/src/index.ts"],
-      "@tooli/user-management": ["libs/user-management/src/index.ts"],
-      "@tooli/wheel-engine": ["libs/wheel-engine/src/index.ts"]
+      "@tooli/audio-system": ["libs/audio-system/src/index.ts"]
     }
-  }
+  },
+  "exclude": ["node_modules", "tmp"]
 }

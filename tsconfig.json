@@ -23,6 +23,12 @@
     },
     {
       "path": "./libs/user-management"
+    },
+    {
+      "path": "./libs"
+    },
+    {
+      "path": "./libs/history-tracker"
     }
   ]
 }

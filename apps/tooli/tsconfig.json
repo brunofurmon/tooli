@@ -22,7 +22,9 @@
     "types": ["jest", "node"],
     "outDir": "dist",
     "rootDir": "src",
-    "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo"
+    "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo",
+    "strict": false,
+    "isolatedModules": true
   },
   "include": [
     "../../apps/tooli/.next/types/**/*.ts",
@@ -46,12 +48,5 @@
     "eslint.config.cjs",
     "eslint.config.mjs"
   ],
-  "references": [
-    {
-      "path": "../../libs/wheel-engine"
-    },
-    {
-      "path": "../../libs/user-management"
-    }
-  ]
+  "references": []
 }

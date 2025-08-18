@@ -4,7 +4,10 @@ import React, { useState, useEffect } from 'react';
 import { Navigation } from '../components/Navigation';
 import { PickerWheel } from '../components/PickerWheel';
 import { UserPanel } from '../components/user-panel/UserPanel';
+import { HistoryPanel } from '../components/history-panel/HistoryPanel';
+import { AnalyticsPanel } from '../components/analytics-panel/AnalyticsPanel';
 import { UserManager } from '@tooli/user-management';
+import { HistoryTracker } from '@tooli/history-tracker';
 import { WheelSegment } from '@tooli/wheel-engine';
 
 export default function HomePage() {
@@ -25,6 +28,12 @@ export default function HomePage() {
     );
     return manager;
   });
+
+  const [historyTracker] = useState(() => {
+    console.log('Initializing HistoryTracker...');
+    return new HistoryTracker();
+  });
+
   const [wheelSegments, setWheelSegments] = useState(
     userManager.getWheelSegments()
   );
@@ -57,7 +66,22 @@ export default function HomePage() {
       result.id !== 'prize4'
     ) {
       // This is a user ID, record the win
-      userManager.recordWin(result.id);
+      const user = userManager.getUserById(result.id);
+      if (user) {
+        userManager.recordWin(result.id);
+        historyTracker.addSpinRecord(
+          result.id,
+          user.name,
+          result.label,
+          result.probability
+        );
+        console.log(
+          'Recorded spin for user:',
+          user.name,
+          'with result:',
+          result.label
+        );
+      }
     }
   };
 
@@ -130,6 +154,39 @@ export default function HomePage() {
                 <UserPanel
                   userManager={userManager}
                   onUsersChanged={handleUsersChanged}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom section: History and Analytics */}
+          <div
+            style={{
+              marginBottom: '32px',
+            }}
+          >
+            {/* Desktop Layout: History on left, Analytics on right */}
+            <div className="history-analytics-layout">
+              {/* History section */}
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                }}
+              >
+                <HistoryPanel historyTracker={historyTracker} />
+              </div>
+
+              {/* Analytics section */}
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                }}
+              >
+                <AnalyticsPanel
+                  historyTracker={historyTracker}
+                  userManager={userManager}
                 />
               </div>
             </div>

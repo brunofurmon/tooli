@@ -1,38 +1,24 @@
 //@ts-check
 
 const { composePlugins, withNx } = require('@nx/next');
-const path = require('path');
 
-/**
- * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
- **/
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Use this to set Nx-specific options
-  // See: https://nx.dev/recipes/next/next-config-setup
-  nx: {},
-  webpack: (config, { isServer }) => {
-    // Add path mapping for libraries
+  webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@tooli/wheel-engine': path.resolve(
-        __dirname,
+      '@tooli/wheel-engine': require.resolve(
         '../../libs/wheel-engine/src/index.ts'
       ),
-      '@tooli/user-management': path.resolve(
-        __dirname,
+      '@tooli/user-management': require.resolve(
         '../../libs/user-management/src/index.ts'
       ),
-      '@tooli/history-tracker': path.resolve(
-        __dirname,
+      '@tooli/history-tracker': require.resolve(
         '../../libs/history-tracker/src/index.ts'
       ),
-      '@tooli/audio-system': path.resolve(
-        __dirname,
+      '@tooli/shared-ui': require.resolve('../../libs/shared-ui/src/index.ts'),
+      '@tooli/audio-system': require.resolve(
         '../../libs/audio-system/src/index.ts'
-      ),
-      '@tooli/shared-ui': path.resolve(
-        __dirname,
-        '../../libs/shared-ui/src/index.ts'
       ),
     };
     return config;
