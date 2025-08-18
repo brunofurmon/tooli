@@ -74,16 +74,19 @@ The application will be available at `http://localhost:3000`
 ## 🆕 Latest Improvements (v1.2.0)
 
 ### 🎯 Enhanced Accuracy
+
 - **Fixed Wheel Results**: Visual position now perfectly matches declared winner
 - **Coordinate System**: Proper mapping between canvas and wheel coordinates
 - **Position-Based Calculation**: Results determined by actual wheel position
 
 ### 🎨 UI/UX Polish
+
 - **Consistent Modal**: Winner modal with stable white background and dark text
 - **Proper Contrast**: All text elements visible in both light and dark modes
 - **Smooth Animations**: Optimized 2-second spin duration for better experience
 
 ### ⚡ Performance & Reliability
+
 - **Instant Response**: Eliminated delays in wheel spinning
 - **Real-time Updates**: Immediate weight redistribution when users are toggled
 - **Robust Synchronization**: Reliable state management and updates

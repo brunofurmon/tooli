@@ -80,13 +80,15 @@ export class UserManager {
       const wasChecked = user.isChecked;
       user.isChecked = !user.isChecked;
       user.lastModified = new Date();
-      
-      console.log(`User ${user.name} participation toggled: ${wasChecked} → ${user.isChecked}`);
+
+      console.log(
+        `User ${user.name} participation toggled: ${wasChecked} → ${user.isChecked}`
+      );
       console.log(`Active users: ${this.getActiveUserCount()}`);
-      
+
       this.saveToStorage();
       this.notifyListeners();
-      
+
       // Force immediate wheel update
       setTimeout(() => {
         console.log('Forcing wheel update after toggle');
@@ -153,6 +155,11 @@ export class UserManager {
     const activeUsers = this.users.filter((u) => u.isChecked);
     if (activeUsers.length === 0) return 0;
 
+    // Special case: if there's only one active user, they get 100%
+    if (activeUsers.length === 1) {
+      return 100;
+    }
+
     // If user has custom weight, return it (normalized if needed)
     if (user.customWeight !== undefined && user.customWeight > 0) {
       const usersWithCustomWeights = activeUsers.filter(
@@ -210,6 +217,19 @@ export class UserManager {
         { id: 'prize2', label: 'Bonus Points', probability: 0.2 },
         { id: 'prize3', label: 'Try Again', probability: 0.3 },
         { id: 'prize4', label: 'Small Prize', probability: 0.4 },
+      ];
+    }
+
+    // Special case: if there's only one active user, they get 100%
+    if (activeUsers.length === 1) {
+      console.log('Single active user, giving 100% weight');
+      return [
+        {
+          id: activeUsers[0].id,
+          label: activeUsers[0].name,
+          probability: 1,
+          color: activeUsers[0].color,
+        },
       ];
     }
 
