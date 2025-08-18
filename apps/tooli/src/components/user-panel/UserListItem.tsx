@@ -32,7 +32,7 @@ export const UserListItem: React.FC<UserListItemProps> = ({
 
   const handleWeightFocus = () => {
     setIsEditingWeight(true);
-    setWeightValue(user.customWeight?.toString() || '');
+    setWeightValue(userManager.getCalculatedWeight(user.id).toFixed(1));
   };
 
   const handleWeightBlur = () => {

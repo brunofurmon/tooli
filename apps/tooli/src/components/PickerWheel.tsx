@@ -37,6 +37,7 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
   // Update wheel segments when they change
   useEffect(() => {
     console.log('Current wheel segments:', segments.length);
+    console.log('Segment probabilities:', segments.map(s => `${s.label}: ${(s.probability * 100).toFixed(1)}%`));
     wheelEngine.updateSegments(segments);
   }, [segments, wheelEngine]);
 
@@ -60,8 +61,9 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
     }
 
     try {
-      const spinResult = await wheelEngine.spin();
-      console.log('Spin result:', spinResult);
+      // Calculate result immediately without delay
+      const result = wheelEngine.calculateResult();
+      console.log('Spin result:', result);
 
       // Animate the wheel
       const startRotation = rotation;
@@ -85,12 +87,12 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
         } else {
           // Spin completed
           setIsWheelSpinning(false);
-          setResult(spinResult.segment);
+          setResult(result.segment);
           setShowWinnerModal(true);
 
           // Notify parent of result
           if (onSpinComplete) {
-            onSpinComplete(spinResult.segment);
+            onSpinComplete(result.segment);
           }
         }
       };
@@ -266,7 +268,7 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
                 style={{
                   fontSize: '24px',
                   fontWeight: '600',
-                  color: 'var(--nextui-colors-success)',
+                  color: 'var(--nextui-colors-foreground)',
                   margin: '0 0 16px 0',
                 }}
               >

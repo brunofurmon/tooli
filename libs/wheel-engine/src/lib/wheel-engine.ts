@@ -71,7 +71,7 @@ export class WheelEngine {
     }
   }
 
-  private calculateResult(): SpinResult {
+  public calculateResult(): SpinResult {
     const random = Math.random();
     let cumulativeProbability = 0;
 
