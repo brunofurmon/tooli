@@ -25,7 +25,7 @@
     "format:check": "nx format:check",
     "wheel:dev": "nx dev tooli --port=3000",
     "wheel:start": "nx start tooli --port=3000",
-    "wheel:build": "nx build tooli",
+    "wheel:build": "nx build tooli --skip-nx-cache",
     "wheel:test": "nx test tooli",
     "wheel:lint": "nx lint tooli",
     "wheel:e2e": "nx e2e tooli-e2e",

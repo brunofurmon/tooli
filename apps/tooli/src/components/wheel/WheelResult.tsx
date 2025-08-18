@@ -44,7 +44,7 @@ export const WheelResult: React.FC<WheelResultProps> = ({
               opacity: 0.8,
             }}
           >
-            Probability: {(result.probability * 100).toFixed(1)}%
+            Probability: {((result.probability || 0) * 100).toFixed(1)}%
           </p>
         </CardBody>
       </Card>

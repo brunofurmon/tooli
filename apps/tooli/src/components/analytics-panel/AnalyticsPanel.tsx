@@ -84,25 +84,31 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
   const handleResetHistory = () => {
     if (
       confirm(
-        'Are you sure you want to reset all spin history? This action cannot be undone.'
+        'Are you sure you want to reset all spin history and user statistics? This action cannot be undone.'
       )
     ) {
+      // Clear history
       historyTracker.clearHistory();
+
+      // Reset user statistics without removing users
+      const users = userManager.getAllUsers();
+      users.forEach((user) => {
+        if (user.stats) {
+          user.stats.wins = 0;
+          user.stats.totalSpins = 0;
+          user.stats.winRate = 0;
+          user.lastModified = new Date();
+        }
+      });
+
+      // Force update by triggering a save
+      userManager.forceUpdate();
     }
   };
 
   const handleResetAnalytics = () => {
-    if (
-      confirm(
-        'Are you sure you want to reset all user statistics? This action cannot be undone.'
-      )
-    ) {
-      // Clear user wins and reset statistics by clearing localStorage and reloading
-      if (typeof window !== 'undefined') {
-        localStorage.removeItem('tooli-users');
-        window.location.reload();
-      }
-    }
+    // This is now the same as handleResetHistory
+    handleResetHistory();
   };
 
   const formatDate = (date: Date | null): string => {
@@ -339,7 +345,7 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
                             opacity: 0.7,
                           }}
                         >
-                          {userStat.totalSpins} spins
+                          {userStat.totalSpins} selections
                         </span>
                       </div>
                       <div
@@ -357,7 +363,7 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
                             color: 'var(--nextui-colors-success)',
                           }}
                         >
-                          {userStat.wins} wins
+                          {userStat.wins} selections
                         </span>
                         <span
                           style={{
@@ -366,7 +372,8 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
                             opacity: 0.7,
                           }}
                         >
-                          {formatPercentage(userStat.winRate)}
+                          {formatPercentage(userStat.winRate / 100)} selection
+                          rate
                         </span>
                       </div>
                     </div>
@@ -437,21 +444,12 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
               </div>
               <Button
                 size="sm"
-                color="warning"
+                color="danger"
                 variant="light"
                 onPress={handleResetHistory}
                 style={{ justifyContent: 'flex-start' }}
               >
-                🗑️ Reset History
-              </Button>
-              <Button
-                size="sm"
-                color="danger"
-                variant="light"
-                onPress={handleResetAnalytics}
-                style={{ justifyContent: 'flex-start' }}
-              >
-                🗑️ Reset Analytics
+                🗑️ Reset History & Analytics
               </Button>
             </div>
           </div>

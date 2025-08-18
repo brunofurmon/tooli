@@ -232,16 +232,24 @@ export class UserManager {
   getUserStats(): UserStats {
     const stats: UserStats = {};
 
+    // Calculate total spins across all users
+    const totalSpinsAcrossAllUsers = this.users.reduce((total, user) => {
+      return total + (user.stats?.wins || 0);
+    }, 0);
+
     this.users.forEach((user) => {
-      const totalSpins = user.stats?.totalSpins || 0;
       const wins = user.stats?.wins || 0;
-      const winRate = totalSpins > 0 ? (wins / totalSpins) * 100 : 0;
+      // Calculate selection rate as percentage of total spins across all users
+      const selectionRate =
+        totalSpinsAcrossAllUsers > 0
+          ? (wins / totalSpinsAcrossAllUsers) * 100
+          : 0;
       const participationRate = user.isChecked ? 100 : 0;
 
       stats[user.id] = {
         wins,
-        totalSpins,
-        winRate,
+        totalSpins: wins, // This represents the number of times this user was selected
+        winRate: selectionRate, // This now represents selection rate among all spins
         participationRate,
       };
     });
@@ -352,6 +360,12 @@ export class UserManager {
       this.saveToStorage();
       this.notifyListeners();
     }
+  }
+
+  // Force update to trigger listeners
+  forceUpdate(): void {
+    this.saveToStorage();
+    this.notifyListeners();
   }
 
   // Event listeners
