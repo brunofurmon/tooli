@@ -1,42 +1,8 @@
-# 🎯 Tooli - Interactive Platform with Spinning Wheel
+# 🎯 Tooli - Software Engineering Team Platform
 
-<div align="center">
-  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
-  <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" />
-  <img src="https://img.shields.io/badge/Nx-143055?style=for-the-badge&logo=nx&logoColor=white" alt="Nx" />
-</div>
+A comprehensive platform designed specifically for software engineering teams to enhance their day-to-day productivity and collaboration. Tooli provides a suite of interactive tools that make development workflows more engaging and efficient.
 
-## 🚀 Overview
-
-Tooli is an interactive platform featuring a spinning wheel component, built with modern web technologies. The project uses a monorepo structure powered by Nx, providing a scalable and maintainable codebase.
-
-## 🏗️ Architecture
-
-The project is organized as a monorepo with the following structure:
-
-```
-tooli/
-├── apps/
-│   ├── tooli/           # Main Next.js application
-│   └── tooli-e2e/       # End-to-end tests
-├── libs/
-│   ├── audio-system/    # Audio management system
-│   ├── history-tracker/ # User interaction history
-│   ├── shared-ui/       # Reusable UI components
-│   └── wheel-engine/    # Spinning wheel logic
-└── docs/               # Project documentation
-```
-
-## 🎮 Features
-
-- **Spinning Wheel**: Interactive wheel component with smooth animations
-- **Audio System**: Comprehensive audio management and playback
-- **History Tracking**: User interaction and session history
-- **Shared UI Components**: Reusable design system
-- **Multi-Agent Development**: AI-powered development workflow
-
-## 🛠️ Quick Start
+## 🚀 Quick Start
 
 ### Prerequisites
 
@@ -54,201 +20,169 @@ cd tooli
 # Install dependencies
 npm install
 
-# Set up pre-commit hooks
-npm run prepare
-```
-
-### Development
-
-```bash
-# Start the development server with spinning wheel
+# Start the development server
 npm run wheel:dev
-
-# Or use the standard dev command
-npm run dev
 ```
 
 The application will be available at `http://localhost:3000`
 
-### Building
+## 🎮 Available Tools
 
-```bash
-# Build the main application
-npm run wheel:build
+### Spinning Wheel (Available Now)
 
-# Build all projects
-npm run build:all
+- **Route:** `/` (Home page)
+- Interactive decision-making tool for team activities
+- Fair randomization with probability-based algorithms
+- Smooth animations and engaging user experience
+- Perfect for team building exercises and random selections
+
+### About Platform (Available Now)
+
+- **Route:** `/about`
+- Comprehensive information about Tooli platform
+- Technology stack and architecture details
+- Roadmap and upcoming features
+- Designed for software engineering teams
+
+### Coming Soon
+
+- **Scrum Poker:** Agile estimation tool for story point voting
+- **Dev Productivity Tools:** Time tracking, task management, and analytics
+
+## 🛠️ Development
+
+### Project Structure
+
+```
+apps/tooli/
+├── src/
+│   ├── app/
+│   │   ├── page.tsx          # Home page (Spinning Wheel)
+│   │   ├── about/
+│   │   │   └── page.tsx      # About page
+│   │   └── layout.tsx        # Root layout
+│   ├── components/
+│   │   ├── ui/               # Atomic UI components
+│   │   │   ├── Button.tsx
+│   │   │   └── Card.tsx
+│   │   ├── wheel/            # Wheel-specific components
+│   │   │   ├── WheelCanvas.tsx
+│   │   │   ├── WheelControls.tsx
+│   │   │   └── WheelResult.tsx
+│   │   ├── Navigation.tsx    # Route-based navigation
+│   │   └── PickerWheel.tsx   # Main wheel component
+│   └── ...
 ```
 
-### Testing
+### Available Scripts
+
+```bash
+# Development
+npm run wheel:dev          # Start development server
+npm run wheel:start        # Start production server
+npm run wheel:build        # Build the application
+
+# Testing
+npm run test               # Run all tests
+npm run test:affected      # Run tests for affected projects
+npm run test:coverage      # Run tests with coverage
+
+# Quality Assurance
+npm run lint               # Lint all projects
+npm run lint:fix           # Fix linting issues
+npm run typecheck          # TypeScript type checking
+
+# Build & Deploy
+npm run build              # Build main application
+npm run build:all          # Build all projects
+npm run build:affected     # Build affected projects
+
+# Utilities
+npm run clean              # Clean build artifacts
+npm run graph              # Show dependency graph
+npm run format             # Format code
+```
+
+### Architecture
+
+Tooli uses a modern monorepo architecture powered by Nx, providing:
+
+- **Atomic Design:** Components are broken down into single-responsibility atomic parts
+- **Route-based Navigation:** Clean URL structure with Next.js App Router
+- **Modular Components:** Reusable UI components in `components/ui/`
+- **Feature Organization:** Feature-specific components in dedicated directories
+- **Type Safety:** Full TypeScript support throughout the application
+- **Performance:** Optimized builds and efficient caching
+
+### Pre-commit Hooks
+
+The project includes pre-commit hooks that automatically:
+
+- Lint staged files
+- Run tests for affected projects
+- Build affected projects
+- Format code
+
+## 🧪 Testing
 
 ```bash
 # Run all tests
 npm run test
 
-# Run tests for affected projects only
-npm run test:affected
+# Run tests for specific project
+npm run wheel:test
 
 # Run tests with coverage
 npm run test:coverage
 
-# Run end-to-end tests
+# Run E2E tests
 npm run e2e
 ```
 
-### Linting and Formatting
-
-```bash
-# Lint all projects
-npm run lint
-
-# Fix linting issues
-npm run lint:fix
-
-# Format code
-npm run format
-
-# Check formatting
-npm run format:check
-```
-
-## 📦 Available Scripts
-
-### Development Scripts
-
-- `npm run dev` - Start development server
-- `npm run wheel:dev` - Start development server on port 3000
-- `npm run start` - Start production server
-- `npm run wheel:start` - Start production server on port 3000
-
-### Build Scripts
-
-- `npm run build` - Build main application
-- `npm run wheel:build` - Build main application
-- `npm run build:all` - Build all projects
-- `npm run libs:build` - Build all libraries
-
-### Test Scripts
-
-- `npm run test` - Run all tests
-- `npm run test:affected` - Run tests for affected projects
-- `npm run test:watch` - Run tests in watch mode
-- `npm run test:coverage` - Run tests with coverage
-- `npm run wheel:test` - Test main application
-- `npm run libs:test` - Test all libraries
-- `npm run e2e` - Run end-to-end tests
-- `npm run e2e:affected` - Run e2e tests for affected projects
-
-### Quality Assurance Scripts
-
-- `npm run lint` - Lint all projects
-- `npm run lint:fix` - Fix linting issues
-- `npm run libs:lint` - Lint all libraries
-- `npm run typecheck` - Type check all projects
-- `npm run format` - Format code
-- `npm run format:check` - Check code formatting
-
-### Utility Scripts
-
-- `npm run clean` - Clean Nx cache
-- `npm run graph` - Show project dependency graph
-- `npm run affected:graph` - Show affected projects graph
-- `npm run precommit` - Run pre-commit checks
-
-## 🔧 Pre-commit Hooks
-
-The project includes pre-commit hooks that automatically run:
-
-1. **Linting**: ESLint and Prettier on staged files
-2. **Testing**: Tests for affected projects
-3. **Building**: Build verification for affected projects
-
-These hooks ensure code quality and prevent broken builds from being committed.
-
-## 🏛️ Multi-Agent Development
-
-This project uses a sophisticated multi-agent development workflow with specialized AI agents:
-
-- **🏗️ Atlas** - Architecture and monorepo structure
-- **🕵️ Shadow** - Market research and competitive analysis
-- **👩‍💻 Nova** - TypeScript implementation
-- **🔍 Echo** - Code review and quality assurance
-- **✅ Pulse** - Testing and quality validation
-- **🔒 Cipher** - Security architecture and compliance
-- **📚 Scroll** - Documentation and user guides
-
 ## 📚 Documentation
 
-- [User Documentation](./docs/user/) - End-user guides and tutorials
-- [Developer Documentation](./docs/developer/) - Technical implementation details
-- [Interactive Documentation](./docs/interactive/) - Interactive examples and demos
-- [Automated Documentation](./docs/automated/) - Generated documentation
+- **User Guide:** `docs/user/getting-started.md`
+- **Developer Guide:** `docs/developer/development-guide.md`
+- **Interactive Examples:** `docs/interactive/examples.md`
 
-## 🧪 Testing Strategy
+## 🛠️ Technology Stack
 
-The project implements a comprehensive testing strategy:
-
-- **Unit Tests**: Jest-based unit tests for all libraries
-- **Integration Tests**: Component and service integration tests
-- **End-to-End Tests**: Playwright-based E2E tests
-- **Type Checking**: TypeScript strict mode validation
-- **Linting**: ESLint with custom rules for code quality
-
-## 🚀 Deployment
-
-### Production Build
-
-```bash
-# Build for production
-npm run wheel:build
-
-# Serve production build
-npm run wheel:start
-```
-
-### Environment Variables
-
-Create a `.env.local` file in the root directory:
-
-```env
-# Application configuration
-NEXT_PUBLIC_APP_NAME=Tooli
-NEXT_PUBLIC_APP_VERSION=1.0.0
-
-# API endpoints
-NEXT_PUBLIC_API_URL=http://localhost:3000/api
-```
+- **Frontend:** React 19, Next.js 15, TypeScript
+- **Styling:** Tailwind CSS
+- **Build System:** Nx Monorepo
+- **Testing:** Jest, Playwright
+- **Quality:** ESLint, Prettier, Husky
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Make your changes following the multi-agent workflow
-4. Run tests: `npm run test`
-5. Commit your changes: `git commit -m 'Add amazing feature'`
-6. Push to the branch: `git push origin feature/amazing-feature`
-7. Open a Pull Request
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Development Guidelines
+
+- Follow atomic design principles
+- Write tests for new features
+- Ensure TypeScript type safety
+- Follow the established code style
+- Update documentation as needed
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## 🗺️ Roadmap
+
+- [x] **Phase 1: Foundation** - Spinning Wheel tool
+- [ ] **Phase 2: Agile Tools** - Scrum Poker and estimation tools
+- [ ] **Phase 3: Productivity Suite** - Advanced productivity and analytics tools
+
 ## 🆘 Support
 
-- **Documentation**: Check the [docs](./docs/) directory
-- **Issues**: Report bugs and feature requests via GitHub Issues
-- **Discussions**: Join the community discussions
-
-## 🔗 Links
-
-- [Nx Documentation](https://nx.dev)
-- [Next.js Documentation](https://nextjs.org/docs)
-- [React Documentation](https://react.dev)
-- [TypeScript Documentation](https://www.typescriptlang.org/docs)
+For support and questions, please open an issue in the GitHub repository.
 
 ---
 
-<div align="center">
-  <p>Built with ❤️ using modern web technologies</p>
-  <p>Powered by <a href="https://nx.dev">Nx</a> and <a href="https://nextjs.org">Next.js</a></p>
-</div>
+Built with ❤️ for software engineering teams

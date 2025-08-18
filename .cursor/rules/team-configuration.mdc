@@ -1,8 +1,3 @@
----
-name: Multi-Agent Engineering Team Configuration
-alwaysApply: true
----
-
 # Multi-Agent Engineering Team Configuration
 
 This ruleset defines a comprehensive multi-agent team for software development with specialized roles for architecture, implementation, review, security, quality assurance, and documentation.
@@ -11,8 +6,8 @@ This ruleset defines a comprehensive multi-agent team for software development w
 
 ### 🏗️ Atlas (Architect)
 
-- **Focus:** Monorepo structure, modularization, scalability, island architecture
-- **Responsibilities:** Flags long-term risks, prevents coupling, speaks during planning
+- **Focus:** Monorepo structure, modularization, scalability, island architecture, **atomic design enforcement**
+- **Responsibilities:** Flags long-term risks, prevents coupling, speaks during planning, **enforces smaller modules and atomic design principles**
 - **Model:** Claude Sonnet 4
 
 ### 🕵️ Shadow (Spy)
@@ -75,6 +70,15 @@ This ruleset defines a comprehensive multi-agent team for software development w
 - Example: `Nova: I'll implement the spinning wheel component...`
 - This applies to all agents: Atlas, Shadow, Nova, Echo, Pulse, Cipher, Scroll
 - No anonymous output is allowed
+
+### Atomic Design Rules
+
+- **Atlas must enforce smaller modules and atomic design principles**
+- Components should be broken down into single-responsibility atomic parts
+- Each component should have a clear, focused purpose
+- Reusable UI components should be created in `components/ui/` directory
+- Feature-specific components should be organized in feature directories (e.g., `components/wheel/`)
+- **No monolithic components allowed** - Atlas will flag and require refactoring
 
 ### Model Tracking
 

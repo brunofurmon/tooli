@@ -1,211 +1,163 @@
 # 🚀 Getting Started with Tooli
 
-Welcome to Tooli! This guide will help you get up and running with the interactive platform featuring the spinning wheel component.
+Welcome to Tooli, the comprehensive platform designed specifically for software engineering teams to enhance their day-to-day productivity and collaboration.
 
 ## 🎯 What is Tooli?
 
-Tooli is an interactive web platform that provides:
+Tooli is a suite of interactive tools that make development workflows more engaging and efficient. Our platform is built with modern web technologies and follows best practices for scalability, maintainability, and user experience.
 
-- **Spinning Wheel Component**: An engaging, animated wheel for interactive experiences
-- **Audio System**: Rich audio feedback and sound management
-- **History Tracking**: Session and interaction history
-- **Modern UI**: Beautiful, responsive design built with React and Next.js
+## 🎮 Available Tools
 
-## 🛠️ Prerequisites
+### Spinning Wheel - Interactive Decision Maker
 
-Before you begin, ensure you have the following installed:
+**Access:** Navigate to the home page (`/`) or click "🎮 Spinning Wheel" in the navigation
 
-- **Node.js** (version 18 or higher)
-- **npm** or **yarn** package manager
-- **Git** for version control
+The Spinning Wheel is our flagship interactive decision-making tool designed for:
 
-### Checking Your Setup
+- **Team Activities:** Random selections for team building exercises
+- **Fair Randomization:** Uses probability-based algorithms for unbiased results
+- **Engaging Experience:** Smooth animations and interactive design
+- **Multiple Options:** Perfect when you need to choose between several alternatives
 
-```bash
-# Check Node.js version
-node --version
+#### How to Use the Spinning Wheel
 
-# Check npm version
-npm --version
+1. **Visit the Home Page:** Go to `http://localhost:3000` (or your deployed URL)
+2. **Click to Spin:** Click anywhere on the wheel or the "Spin the Wheel!" button
+3. **Watch the Animation:** Enjoy the smooth spinning animation
+4. **See the Result:** The wheel will stop and display your result with probability information
 
-# Check Git version
-git --version
-```
+#### Features
 
-## 📦 Installation
+- **Colorful Segments:** Each option has a distinct color for easy identification
+- **Smooth Animations:** Realistic spinning with easing functions
+- **Result Display:** Clear indication of the selected option
+- **Probability Information:** See the likelihood of each outcome
+- **Responsive Design:** Works perfectly on desktop, tablet, and mobile
 
-### 1. Clone the Repository
+### About Platform - Learn More
 
-```bash
-git clone <repository-url>
-cd tooli
-```
+**Access:** Click "ℹ️ About" in the navigation or visit `/about`
 
-### 2. Install Dependencies
+The About page provides comprehensive information about:
 
-```bash
-npm install
-```
+- **Platform Overview:** What Tooli is and how it helps software engineering teams
+- **Available Tools:** Current and upcoming features
+- **Technology Stack:** Built with React 19, Next.js 15, TypeScript, and more
+- **Architecture:** Modern monorepo structure powered by Nx
+- **Roadmap:** Future development plans and upcoming features
 
-### 3. Set Up Development Environment
+## 🛠️ Navigation
 
-```bash
-# Install pre-commit hooks
-npm run prepare
-```
+Tooli uses a clean, route-based navigation system:
 
-## 🎮 Running the Application
+- **🎯 Tooli Logo:** Click to return to the home page (Spinning Wheel)
+- **🎮 Spinning Wheel:** Navigate to the interactive wheel tool
+- **ℹ️ About:** Learn more about the platform and upcoming features
 
-### Development Mode
+## 🚀 Quick Start Guide
 
-Start the development server with the spinning wheel:
+### 1. Access the Platform
 
 ```bash
+# Start the development server
 npm run wheel:dev
+
+# Or visit the deployed version
+# (URL will be provided by your team)
 ```
 
-The application will be available at `http://localhost:3000`
+### 2. Try the Spinning Wheel
 
-### Alternative Commands
+1. Navigate to the home page
+2. Click the wheel or the "Spin the Wheel!" button
+3. Watch the smooth animation
+4. See your result displayed
 
-```bash
-# Standard development server
-npm run dev
+### 3. Explore the Platform
 
-# Production build and serve
-npm run wheel:build
-npm run wheel:start
-```
+1. Click "ℹ️ About" to learn more about Tooli
+2. Discover upcoming features like Scrum Poker
+3. Understand the technology behind the platform
 
-## 🎯 Using the Spinning Wheel
+## 🎯 Use Cases
 
-### Basic Usage
+### For Software Engineering Teams
 
-1. **Navigate to the Application**: Open your browser and go to `http://localhost:3000`
-2. **Locate the Wheel**: The spinning wheel component will be prominently displayed
-3. **Interact**: Click or tap to spin the wheel
-4. **Watch the Animation**: Enjoy the smooth spinning animation with audio feedback
+- **Sprint Planning:** Randomly assign tasks or stories
+- **Code Reviews:** Randomly select team members for reviews
+- **Team Building:** Fun activities during team meetings
+- **Decision Making:** When multiple options are equally valid
+- **Ice Breakers:** Start meetings with engaging activities
 
-### Features
+### For Agile Teams
 
-- **Smooth Animations**: Hardware-accelerated CSS animations
-- **Audio Feedback**: Sound effects for interactions
-- **History Tracking**: Your spins are recorded for future reference
-- **Responsive Design**: Works on desktop, tablet, and mobile devices
+- **Story Point Estimation:** Random selection for estimation exercises
+- **Retrospective Activities:** Random team member selection
+- **Daily Standup Variations:** Mix up the order of team updates
 
-## 🎵 Audio System
+## 🔧 Customization
 
-The platform includes a comprehensive audio system:
+The Spinning Wheel comes with default options, but you can customize:
 
-- **Sound Effects**: Interactive feedback for wheel spins
-- **Background Music**: Optional ambient audio
-- **Volume Control**: Adjustable audio levels
-- **Mute Options**: Quick mute/unmute functionality
+- **Segments:** Different prizes or options
+- **Probabilities:** Adjust the likelihood of each outcome
+- **Colors:** Visual customization of wheel segments
+- **Animations:** Speed and easing of the spinning effect
 
-## 📊 History Tracking
+## 📱 Responsive Design
 
-Your interactions are automatically tracked:
+Tooli is fully responsive and works on:
 
-- **Session History**: View your current session's spins
-- **Persistent Storage**: Data is saved locally for future sessions
-- **Analytics**: Track patterns and preferences
+- **Desktop:** Full-featured experience with large wheel
+- **Tablet:** Optimized touch interface
+- **Mobile:** Compact design for smaller screens
 
-## 🎨 Customization
-
-### Themes
-
-The platform supports multiple themes:
-
-- **Light Mode**: Clean, bright interface
-- **Dark Mode**: Easy on the eyes
-- **High Contrast**: Accessibility-focused design
-
-### Wheel Options
-
-Customize your spinning wheel experience:
-
-- **Speed Control**: Adjust spinning speed
-- **Color Schemes**: Choose from various color palettes
-- **Sound Preferences**: Select different audio themes
-
-## 🔧 Troubleshooting
+## 🆘 Getting Help
 
 ### Common Issues
 
-#### Application Won't Start
+**Wheel not spinning:**
 
-```bash
-# Check if port 3000 is available
-lsof -i :3000
+- Ensure you're clicking on the wheel or button
+- Check that the page has fully loaded
+- Try refreshing the page
 
-# Kill process if needed
-kill -9 <PID>
+**Navigation not working:**
 
-# Try a different port
-npm run wheel:dev -- --port=3001
-```
+- Verify you're using a modern browser
+- Check that JavaScript is enabled
+- Clear browser cache if needed
 
-#### Dependencies Issues
+### Support
 
-```bash
-# Clear npm cache
-npm cache clean --force
+- **Documentation:** Check this guide and other docs in the `/docs` directory
+- **Issues:** Report bugs via GitHub Issues
+- **Feature Requests:** Suggest new features through GitHub Discussions
 
-# Remove node_modules and reinstall
-rm -rf node_modules package-lock.json
-npm install
-```
+## 🗺️ What's Coming Next
 
-#### Build Errors
+### Phase 2: Agile Tools
 
-```bash
-# Clean Nx cache
-npm run clean
+- **Scrum Poker:** Story point estimation tool
+- **Team Voting:** Consensus building features
+- **Sprint Planning:** Enhanced planning tools
 
-# Rebuild
-npm run wheel:build
-```
+### Phase 3: Productivity Suite
 
-### Getting Help
+- **Time Tracking:** Development time management
+- **Task Management:** Team task organization
+- **Analytics:** Team productivity insights
 
-If you encounter issues:
+## 🎉 Getting Started Checklist
 
-1. **Check the Console**: Look for error messages in the browser console
-2. **Review Logs**: Check terminal output for detailed error information
-3. **Documentation**: Refer to the [developer documentation](../developer/)
-4. **Issues**: Report bugs via GitHub Issues
-
-## 📱 Mobile Usage
-
-The platform is fully responsive and works great on mobile devices:
-
-- **Touch Controls**: Optimized for touch interactions
-- **Responsive Design**: Adapts to different screen sizes
-- **Mobile Audio**: Compatible with mobile audio systems
-
-## 🔒 Privacy and Security
-
-- **Local Storage**: Your data stays on your device
-- **No Tracking**: No external analytics or tracking
-- **Secure**: Built with modern security practices
-
-## 🆘 Support
-
-Need help? Here are your options:
-
-- **Documentation**: Browse the [docs](../) directory
-- **Issues**: Report problems via GitHub Issues
-- **Community**: Join discussions in the community forum
-
-## 🎉 Next Steps
-
-Now that you're up and running:
-
-1. **Explore Features**: Try different wheel configurations
-2. **Customize**: Adjust settings to your preferences
-3. **Share**: Tell others about your experience
-4. **Contribute**: Consider contributing to the project
+- [ ] Start the development server
+- [ ] Navigate to the home page
+- [ ] Try spinning the wheel
+- [ ] Explore the About page
+- [ ] Test navigation between pages
+- [ ] Try on different devices (desktop, mobile)
+- [ ] Share feedback with your team
 
 ---
 
-**Happy spinning! 🎯**
+**Ready to enhance your team's productivity?** Start with the Spinning Wheel and explore what Tooli has to offer for software engineering teams!
