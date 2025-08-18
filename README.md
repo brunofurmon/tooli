@@ -1,101 +1,254 @@
-# Tooli
+# 🎯 Tooli - Interactive Platform with Spinning Wheel
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+<div align="center">
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" />
+  <img src="https://img.shields.io/badge/Nx-143055?style=for-the-badge&logo=nx&logoColor=white" alt="Nx" />
+</div>
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+## 🚀 Overview
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/next?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+Tooli is an interactive platform featuring a spinning wheel component, built with modern web technologies. The project uses a monorepo structure powered by Nx, providing a scalable and maintainable codebase.
 
-## Run tasks
+## 🏗️ Architecture
 
-To run the dev server for your app, use:
+The project is organized as a monorepo with the following structure:
 
-```sh
-npx nx dev tooli
+```
+tooli/
+├── apps/
+│   ├── tooli/           # Main Next.js application
+│   └── tooli-e2e/       # End-to-end tests
+├── libs/
+│   ├── audio-system/    # Audio management system
+│   ├── history-tracker/ # User interaction history
+│   ├── shared-ui/       # Reusable UI components
+│   └── wheel-engine/    # Spinning wheel logic
+└── docs/               # Project documentation
 ```
 
-To create a production bundle:
+## 🎮 Features
 
-```sh
-npx nx build tooli
+- **Spinning Wheel**: Interactive wheel component with smooth animations
+- **Audio System**: Comprehensive audio management and playback
+- **History Tracking**: User interaction and session history
+- **Shared UI Components**: Reusable design system
+- **Multi-Agent Development**: AI-powered development workflow
+
+## 🛠️ Quick Start
+
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+- Git
+
+### Installation
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd tooli
+
+# Install dependencies
+npm install
+
+# Set up pre-commit hooks
+npm run prepare
 ```
 
-To see all available targets to run for a project, run:
+### Development
 
-```sh
-npx nx show project tooli
+```bash
+# Start the development server with spinning wheel
+npm run wheel:dev
+
+# Or use the standard dev command
+npm run dev
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+The application will be available at `http://localhost:3000`
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### Building
 
-## Add new projects
+```bash
+# Build the main application
+npm run wheel:build
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
-
-```sh
-npx nx g @nx/next:app demo
+# Build all projects
+npm run build:all
 ```
 
-To generate a new library, use:
+### Testing
 
-```sh
-npx nx g @nx/react:lib mylib
+```bash
+# Run all tests
+npm run test
+
+# Run tests for affected projects only
+npm run test:affected
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run end-to-end tests
+npm run e2e
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+### Linting and Formatting
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+```bash
+# Lint all projects
+npm run lint
 
-## Set up CI!
+# Fix linting issues
+npm run lint:fix
 
-### Step 1
+# Format code
+npm run format
 
-To connect to Nx Cloud, run the following command:
-
-```sh
-npx nx connect
+# Check formatting
+npm run format:check
 ```
 
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+## 📦 Available Scripts
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### Development Scripts
 
-### Step 2
+- `npm run dev` - Start development server
+- `npm run wheel:dev` - Start development server on port 3000
+- `npm run start` - Start production server
+- `npm run wheel:start` - Start production server on port 3000
 
-Use the following command to configure a CI workflow for your workspace:
+### Build Scripts
 
-```sh
-npx nx g ci-workflow
+- `npm run build` - Build main application
+- `npm run wheel:build` - Build main application
+- `npm run build:all` - Build all projects
+- `npm run libs:build` - Build all libraries
+
+### Test Scripts
+
+- `npm run test` - Run all tests
+- `npm run test:affected` - Run tests for affected projects
+- `npm run test:watch` - Run tests in watch mode
+- `npm run test:coverage` - Run tests with coverage
+- `npm run wheel:test` - Test main application
+- `npm run libs:test` - Test all libraries
+- `npm run e2e` - Run end-to-end tests
+- `npm run e2e:affected` - Run e2e tests for affected projects
+
+### Quality Assurance Scripts
+
+- `npm run lint` - Lint all projects
+- `npm run lint:fix` - Fix linting issues
+- `npm run libs:lint` - Lint all libraries
+- `npm run typecheck` - Type check all projects
+- `npm run format` - Format code
+- `npm run format:check` - Check code formatting
+
+### Utility Scripts
+
+- `npm run clean` - Clean Nx cache
+- `npm run graph` - Show project dependency graph
+- `npm run affected:graph` - Show affected projects graph
+- `npm run precommit` - Run pre-commit checks
+
+## 🔧 Pre-commit Hooks
+
+The project includes pre-commit hooks that automatically run:
+
+1. **Linting**: ESLint and Prettier on staged files
+2. **Testing**: Tests for affected projects
+3. **Building**: Build verification for affected projects
+
+These hooks ensure code quality and prevent broken builds from being committed.
+
+## 🏛️ Multi-Agent Development
+
+This project uses a sophisticated multi-agent development workflow with specialized AI agents:
+
+- **🏗️ Atlas** - Architecture and monorepo structure
+- **🕵️ Shadow** - Market research and competitive analysis
+- **👩‍💻 Nova** - TypeScript implementation
+- **🔍 Echo** - Code review and quality assurance
+- **✅ Pulse** - Testing and quality validation
+- **🔒 Cipher** - Security architecture and compliance
+- **📚 Scroll** - Documentation and user guides
+
+## 📚 Documentation
+
+- [User Documentation](./docs/user/) - End-user guides and tutorials
+- [Developer Documentation](./docs/developer/) - Technical implementation details
+- [Interactive Documentation](./docs/interactive/) - Interactive examples and demos
+- [Automated Documentation](./docs/automated/) - Generated documentation
+
+## 🧪 Testing Strategy
+
+The project implements a comprehensive testing strategy:
+
+- **Unit Tests**: Jest-based unit tests for all libraries
+- **Integration Tests**: Component and service integration tests
+- **End-to-End Tests**: Playwright-based E2E tests
+- **Type Checking**: TypeScript strict mode validation
+- **Linting**: ESLint with custom rules for code quality
+
+## 🚀 Deployment
+
+### Production Build
+
+```bash
+# Build for production
+npm run wheel:build
+
+# Serve production build
+npm run wheel:start
 ```
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### Environment Variables
 
-## Install Nx Console
+Create a `.env.local` file in the root directory:
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+```env
+# Application configuration
+NEXT_PUBLIC_APP_NAME=Tooli
+NEXT_PUBLIC_APP_VERSION=1.0.0
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+# API endpoints
+NEXT_PUBLIC_API_URL=http://localhost:3000/api
+```
 
-## Useful links
+## 🤝 Contributing
 
-Learn more:
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Make your changes following the multi-agent workflow
+4. Run tests: `npm run test`
+5. Commit your changes: `git commit -m 'Add amazing feature'`
+6. Push to the branch: `git push origin feature/amazing-feature`
+7. Open a Pull Request
 
-- [Learn more about this workspace setup](https://nx.dev/nx-api/next?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## 📄 License
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🆘 Support
+
+- **Documentation**: Check the [docs](./docs/) directory
+- **Issues**: Report bugs and feature requests via GitHub Issues
+- **Discussions**: Join the community discussions
+
+## 🔗 Links
+
+- [Nx Documentation](https://nx.dev)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [React Documentation](https://react.dev)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs)
+
+---
+
+<div align="center">
+  <p>Built with ❤️ using modern web technologies</p>
+  <p>Powered by <a href="https://nx.dev">Nx</a> and <a href="https://nextjs.org">Next.js</a></p>
+</div>

@@ -2,7 +2,40 @@
   "name": "@tooli/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "dev": "nx dev tooli",
+    "start": "nx start tooli",
+    "build": "nx build tooli",
+    "build:all": "nx run-many --target=build --all",
+    "build:affected": "nx affected --target=build",
+    "test": "nx run-many --target=test --all",
+    "test:affected": "nx affected --target=test --parallel=1 -- --runInBand --forceExit --passWithNoTests",
+    "test:watch": "nx test --watch",
+    "test:coverage": "nx run-many --target=test --all --coverage",
+    "lint": "nx run-many --target=lint --all",
+    "lint:fix": "nx run-many --target=lint --all --fix",
+    "e2e": "nx e2e tooli-e2e",
+    "e2e:affected": "nx affected:e2e",
+    "typecheck": "nx run-many --target=typecheck --all",
+    "clean": "nx reset",
+    "graph": "nx graph",
+    "affected:graph": "nx affected:graph",
+    "format": "nx format:write",
+    "format:check": "nx format:check",
+    "wheel:dev": "nx dev tooli --port=3000",
+    "wheel:start": "nx start tooli --port=3000",
+    "wheel:build": "nx build tooli",
+    "wheel:test": "nx test tooli",
+    "wheel:e2e": "nx e2e tooli-e2e",
+    "libs:build": "nx run-many --target=build --projects=audio-system,history-tracker,shared-ui,wheel-engine",
+    "libs:test": "nx run-many --target=test --projects=audio-system,history-tracker,shared-ui,wheel-engine",
+    "libs:lint": "nx run-many --target=lint --projects=audio-system,history-tracker,shared-ui,wheel-engine",
+    "precommit": "npm run lint && npm run test:affected && npm run build:all",
+    "prepare": "husky install",
+    "docs:dev": "nx dev tooli --port=3001",
+    "docs:build": "nx build tooli",
+    "docs:serve": "nx serve-static tooli --port=3001"
+  },
   "private": true,
   "dependencies": {
     "@heroui/react": "^2.8.2",
@@ -57,6 +90,7 @@
     "eslint-plugin-playwright": "^1.6.2",
     "eslint-plugin-react": "7.35.0",
     "eslint-plugin-react-hooks": "5.0.0",
+    "husky": "^8.0.3",
     "jest": "^30.0.2",
     "jest-environment-jsdom": "^30.0.2",
     "jest-environment-node": "^30.0.2",
@@ -64,6 +98,7 @@
     "jiti": "2.4.2",
     "jsdom": "~22.1.0",
     "jsonc-eslint-parser": "^2.1.0",
+    "lint-staged": "^15.2.0",
     "nx": "21.4.0",
     "postcss": "^8.5.6",
     "prettier": "^2.6.2",
@@ -81,5 +116,14 @@
     "apps/*",
     "libs",
     "libs/*"
-  ]
+  ],
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  }
 }
