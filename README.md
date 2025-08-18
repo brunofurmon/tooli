@@ -1,4 +1,4 @@
-# 🎯 Tooli - Interactive Team Decision Platform
+# 🎯 Tooli - productivity tools for humans
 
 A comprehensive platform designed for teams to make decisions, manage participants, track history, and analyze performance. Tooli provides an interactive spinning wheel with advanced user management and analytics capabilities.
 
