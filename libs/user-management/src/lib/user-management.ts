@@ -175,7 +175,11 @@ export class UserManager {
       (sum, user) => sum + (user.customWeight || 0),
       0
     );
-    const remainingWeight = Math.max(0, 100 - totalCustomWeight);
+
+    // If total custom weight exceeds 100%, normalize it
+    const normalizedTotalWeight =
+      totalCustomWeight > 100 ? 100 : totalCustomWeight;
+    const remainingWeight = Math.max(0, 100 - normalizedTotalWeight);
     const equalWeight =
       usersWithoutCustomWeights.length > 0
         ? remainingWeight / usersWithoutCustomWeights.length
@@ -193,12 +197,16 @@ export class UserManager {
     // Create segments
     const segments: WheelSegment[] = [];
 
-    // Add users with custom weights
+    // Add users with custom weights (normalized if total > 100%)
     usersWithCustomWeights.forEach((user) => {
+      const normalizedWeight =
+        totalCustomWeight > 100
+          ? (user.customWeight || 0) * (100 / totalCustomWeight)
+          : user.customWeight || 0;
       segments.push({
         id: user.id,
         label: user.name,
-        probability: (user.customWeight || 0) / 100,
+        probability: normalizedWeight / 100,
         color: user.color,
       });
     });

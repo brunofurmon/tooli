@@ -66,7 +66,7 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
       // Animate the wheel
       const startRotation = rotation;
       const targetRotation = startRotation + 1440 + Math.random() * 360; // Multiple rotations + random
-      const duration = 3000; // 3 seconds
+      const duration = 1000; // 1 second for faster spin
       const startTime = Date.now();
 
       const animate = () => {
@@ -201,6 +201,8 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
               position: 'relative',
               textAlign: 'center',
               boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
+              backdropFilter: 'blur(10px)',
+              border: '1px solid var(--nextui-colors-divider)',
             }}
           >
             {/* Close button */}
