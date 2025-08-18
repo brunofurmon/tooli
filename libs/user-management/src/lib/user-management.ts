@@ -339,6 +339,21 @@ export class UserManager {
     }
   }
 
+  // Reset user statistics
+  resetUserStats(userId: string): void {
+    const user = this.users.find((u) => u.id === userId);
+    if (user) {
+      user.stats = {
+        wins: 0,
+        totalSpins: 0,
+        winRate: 0,
+      };
+      user.lastModified = new Date();
+      this.saveToStorage();
+      this.notifyListeners();
+    }
+  }
+
   // Event listeners
   subscribe(listener: () => void): () => void {
     this.listeners.push(listener);

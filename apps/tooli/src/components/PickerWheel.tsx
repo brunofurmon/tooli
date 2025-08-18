@@ -1,70 +1,69 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
-import { WheelEngine, WheelSegment } from '@tooli/wheel-engine';
+import React, { useState, useEffect, useRef } from 'react';
 import { WheelCanvas } from './wheel/WheelCanvas';
-import { WheelControls } from './wheel/WheelControls';
 import { WheelResult } from './wheel/WheelResult';
+import { WheelEngine } from '@tooli/wheel-engine';
+import { WheelSegment } from '@tooli/wheel-engine';
 
-interface PickerWheelProps {
-  size?: number;
-  segments?: WheelSegment[];
+export interface PickerWheelProps {
+  size: number;
+  segments: WheelSegment[];
   onSpinComplete?: (result: WheelSegment) => void;
+  onSpinStart?: () => void;
+  isSpinning?: boolean;
+  pendingResult?: WheelSegment | null;
 }
 
 export const PickerWheel: React.FC<PickerWheelProps> = ({
-  size = 400,
+  size,
   segments,
   onSpinComplete,
+  onSpinStart,
+  isSpinning = false,
+  pendingResult,
 }) => {
   const [wheelEngine] = useState(() => {
-    const defaultSegments: WheelSegment[] = [
-      { id: 'prize1', label: 'Free Spin', probability: 0.1 },
-      { id: 'prize2', label: 'Bonus Points', probability: 0.2 },
-      { id: 'prize3', label: 'Try Again', probability: 0.3 },
-      { id: 'prize4', label: 'Small Prize', probability: 0.4 },
-    ];
-
-    console.log(
-      'Initializing wheel engine with segments:',
-      segments?.length || defaultSegments.length
-    );
-    return new WheelEngine({ segments: segments || defaultSegments });
+    console.log('Initializing wheel engine with segments:', segments.length);
+    return new WheelEngine(segments);
   });
-  const [isSpinning, setIsSpinning] = useState(false);
-  const [result, setResult] = useState<WheelSegment | null>(null);
+
   const [rotation, setRotation] = useState(0);
+  const [result, setResult] = useState<WheelSegment | null>(null);
+  const [isWheelSpinning, setIsWheelSpinning] = useState(false);
   const animationRef = useRef<number | undefined>(undefined);
 
-  // Update wheel engine when segments change
+  // Update wheel segments when they change
   useEffect(() => {
-    if (segments && segments.length > 0) {
-      wheelEngine.updateSegments(segments);
-      console.log('Updated wheel segments:', segments.length);
-    }
+    console.log('Current wheel segments:', segments.length);
+    wheelEngine.updateSegments(segments);
   }, [segments, wheelEngine]);
 
-  const wheelSegments = wheelEngine.getSegments();
-  console.log('Current wheel segments:', wheelSegments.length);
+  // Update wheel segments when they change
+  useEffect(() => {
+    console.log('Updated wheel segments:', segments.length);
+    wheelEngine.updateSegments(segments);
+  }, [segments, wheelEngine]);
 
-  const spinWheel = async () => {
-    if (isSpinning) return;
+  const handleSpin = () => {
+    if (isWheelSpinning || isSpinning) return;
 
-    console.log('Starting wheel spin...');
-    setIsSpinning(true);
+    console.log('Starting spin...');
+    setIsWheelSpinning(true);
     setResult(null);
 
-    try {
-      const spinResult = await wheelEngine.spin();
-      setResult(spinResult.segment);
-      console.log('Spin result:', spinResult);
+    // Notify parent that spin is starting
+    if (onSpinStart) {
+      onSpinStart();
+    }
 
-      // Call the callback if provided
-      onSpinComplete?.(spinResult.segment);
+    try {
+      const spinResult = wheelEngine.spin();
+      console.log('Spin result:', spinResult);
 
       // Animate the wheel
       const startRotation = rotation;
-      const endRotation = startRotation + 1440 + Math.random() * 360; // Multiple full rotations
+      const targetRotation = startRotation + 1440 + Math.random() * 360; // Multiple rotations + random
       const duration = 3000; // 3 seconds
       const startTime = Date.now();
 
@@ -75,25 +74,32 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
         // Easing function for smooth deceleration
         const easeOut = 1 - Math.pow(1 - progress, 3);
         const currentRotation =
-          startRotation + (endRotation - startRotation) * easeOut;
+          startRotation + (targetRotation - startRotation) * easeOut;
 
         setRotation(currentRotation);
 
         if (progress < 1) {
           animationRef.current = requestAnimationFrame(animate);
         } else {
-          setIsSpinning(false);
-          console.log('Spin animation complete');
+          // Spin completed
+          setIsWheelSpinning(false);
+          setResult(spinResult);
+
+          // Notify parent of result
+          if (onSpinComplete) {
+            onSpinComplete(spinResult);
+          }
         }
       };
 
-      animate();
+      animationRef.current = requestAnimationFrame(animate);
     } catch (error) {
       console.error('Error during spin:', error);
-      setIsSpinning(false);
+      setIsWheelSpinning(false);
     }
   };
 
+  // Cleanup animation on unmount
   useEffect(() => {
     return () => {
       if (animationRef.current) {
@@ -108,47 +114,71 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
-        gap: '24px',
-        width: '100%',
+        gap: '16px',
       }}
     >
-      <div style={{ textAlign: 'center', marginBottom: '16px' }}>
+      <div
+        style={{
+          textAlign: 'center',
+          marginBottom: '16px',
+        }}
+      >
         <h2
           style={{
             fontSize: '24px',
             fontWeight: 'bold',
             color: 'var(--nextui-colors-foreground)',
-            margin: 0,
-            marginBottom: '8px',
+            margin: '0 0 8px 0',
           }}
         >
-          🎯 Spinning Wheel
+          🎡 Decision Wheel
         </h2>
         <p
           style={{
+            fontSize: '14px',
             color: 'var(--nextui-colors-foreground)',
             opacity: 0.7,
             margin: 0,
           }}
         >
-          Click the wheel or button to spin!
+          Click the wheel to spin and make a decision
         </p>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-        <WheelCanvas
-          size={size}
-          segments={wheelSegments}
-          rotation={rotation}
-          onSpin={spinWheel}
-          isSpinning={isSpinning}
-        />
+      <div
+        onClick={handleSpin}
+        style={{
+          cursor: isWheelSpinning || isSpinning ? 'not-allowed' : 'pointer',
+          position: 'relative',
+        }}
+      >
+        <WheelCanvas size={size} segments={segments} rotation={rotation} />
       </div>
 
-      <WheelResult result={result} isSpinning={isSpinning} />
+      {/* Show pending result at the top of history */}
+      {pendingResult && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '100px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 1000,
+            backgroundColor: 'var(--nextui-colors-success)',
+            color: 'white',
+            padding: '12px 24px',
+            borderRadius: '8px',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+            fontSize: '18px',
+            fontWeight: 'bold',
+          }}
+        >
+          🎉 Winner: {pendingResult.label}!
+        </div>
+      )}
 
-      <WheelControls onSpin={spinWheel} isSpinning={isSpinning} />
+      {/* Show result below wheel */}
+      {result && !pendingResult && <WheelResult result={result} />}
     </div>
   );
 };

@@ -15,7 +15,7 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
 }) => {
   const [stats, setStats] = useState<HistoryStats>({
     totalSpins: 0,
-    mostFrequentWinner: '',
+    mostFrequentWinner: null,
     averageProbability: 0,
     lastSpinDate: null,
   });
@@ -32,7 +32,6 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
     updateStats();
     const unsubscribeHistory = historyTracker.subscribe(updateStats);
     const unsubscribeUsers = userManager.subscribe(updateStats);
-
     return () => {
       unsubscribeHistory();
       unsubscribeUsers();
@@ -40,53 +39,70 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
   }, [historyTracker, userManager]);
 
   const handleExportUsers = () => {
-    try {
-      const jsonData = userManager.exportToJSON();
-      const blob = new Blob([jsonData], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'tooli-users.json';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error('Failed to export users:', error);
-    }
+    const data = userManager.exportToJSON();
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `tooli-users-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
   const handleExportHistory = () => {
-    try {
-      const jsonData = historyTracker.exportToJSON();
-      const blob = new Blob([jsonData], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'tooli-history.json';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error('Failed to export history:', error);
-    }
+    const data = historyTracker.exportToJSON();
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `tooli-history-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
   const handleImportUsers = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (!file) return;
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = JSON.parse(e.target?.result as string);
+          userManager.importFromJSON(data);
+        } catch (error) {
+          console.error('Error importing users:', error);
+          alert('Error importing users. Please check the file format.');
+        }
+      };
+      reader.readAsText(file);
+    }
+  };
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      try {
-        const jsonData = e.target?.result as string;
-        userManager.importFromJSON(jsonData);
-      } catch (error) {
-        console.error('Failed to import users:', error);
+  const handleResetHistory = () => {
+    if (
+      confirm(
+        'Are you sure you want to reset all spin history? This action cannot be undone.'
+      )
+    ) {
+      historyTracker.clearHistory();
+    }
+  };
+
+  const handleResetAnalytics = () => {
+    if (
+      confirm(
+        'Are you sure you want to reset all user statistics? This action cannot be undone.'
+      )
+    ) {
+      // Clear user wins and reset statistics by clearing localStorage and reloading
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('tooli-users');
+        window.location.reload();
       }
-    };
-    reader.readAsText(file);
+    }
   };
 
   const formatDate = (date: Date | null): string => {
@@ -100,22 +116,45 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
   };
 
   const formatPercentage = (value: number): string => {
-    return `${value.toFixed(1)}%`;
+    return `${(value * 100).toFixed(1)}%`;
   };
+
+  // Sort user stats by wins (most wins first)
+  const sortedUserStats = Object.entries(userStats)
+    .sort(([, a], [, b]) => b.wins - a.wins)
+    .filter(([, stats]) => stats.wins > 0); // Only show users with wins
 
   return (
     <Card style={{ width: '100%', maxWidth: '400px' }}>
       <CardHeader>
-        <h3
+        <div
           style={{
-            fontSize: '18px',
-            fontWeight: 'bold',
-            color: 'var(--nextui-colors-foreground)',
-            margin: 0,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: '100%',
           }}
         >
-          📈 Analytics
-        </h3>
+          <h3
+            style={{
+              fontSize: '18px',
+              fontWeight: 'bold',
+              color: 'var(--nextui-colors-foreground)',
+              margin: 0,
+            }}
+          >
+            📈 Analytics
+          </h3>
+          <span
+            style={{
+              fontSize: '14px',
+              color: 'var(--nextui-colors-foreground)',
+              opacity: 0.7,
+            }}
+          >
+            {stats.totalSpins} total
+          </span>
+        </div>
       </CardHeader>
       <CardBody>
         <div
@@ -129,13 +168,13 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
           <div>
             <h4
               style={{
-                fontSize: '14px',
+                fontSize: '16px',
                 fontWeight: '600',
                 color: 'var(--nextui-colors-foreground)',
-                margin: '0 0 8px 0',
+                margin: '0 0 12px 0',
               }}
             >
-              Overall Stats
+              Overall Statistics
             </h4>
             <div
               style={{
@@ -148,13 +187,13 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
                 style={{
                   display: 'flex',
                   justifyContent: 'space-between',
-                  fontSize: '12px',
+                  fontSize: '14px',
                 }}
               >
                 <span
                   style={{
                     color: 'var(--nextui-colors-foreground)',
-                    opacity: 0.7,
+                    opacity: 0.8,
                   }}
                 >
                   Total Spins:
@@ -172,20 +211,20 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
                 style={{
                   display: 'flex',
                   justifyContent: 'space-between',
-                  fontSize: '12px',
+                  fontSize: '14px',
                 }}
               >
                 <span
                   style={{
                     color: 'var(--nextui-colors-foreground)',
-                    opacity: 0.7,
+                    opacity: 0.8,
                   }}
                 >
                   Most Wins:
                 </span>
                 <span
                   style={{
-                    color: 'var(--nextui-colors-foreground)',
+                    color: 'var(--nextui-colors-success)',
                     fontWeight: '600',
                   }}
                 >
@@ -196,13 +235,13 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
                 style={{
                   display: 'flex',
                   justifyContent: 'space-between',
-                  fontSize: '12px',
+                  fontSize: '14px',
                 }}
               >
                 <span
                   style={{
                     color: 'var(--nextui-colors-foreground)',
-                    opacity: 0.7,
+                    opacity: 0.8,
                   }}
                 >
                   Avg Probability:
@@ -220,13 +259,13 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
                 style={{
                   display: 'flex',
                   justifyContent: 'space-between',
-                  fontSize: '12px',
+                  fontSize: '14px',
                 }}
               >
                 <span
                   style={{
                     color: 'var(--nextui-colors-foreground)',
-                    opacity: 0.7,
+                    opacity: 0.8,
                   }}
                 >
                   Last Spin:
@@ -243,75 +282,108 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
             </div>
           </div>
 
-          {/* User Statistics */}
-          <div>
-            <h4
-              style={{
-                fontSize: '14px',
-                fontWeight: '600',
-                color: 'var(--nextui-colors-foreground)',
-                margin: '0 0 8px 0',
-              }}
-            >
-              User Stats
-            </h4>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '8px',
-                maxHeight: '200px',
-                overflowY: 'auto',
-              }}
-            >
-              {Object.entries(userStats).map(([userId, userStat]) => {
-                const user = userManager.getUserById(userId);
-                if (!user) return null;
-
-                return (
-                  <div
-                    key={userId}
-                    style={{
-                      padding: '8px',
-                      border: '1px solid var(--nextui-colors-divider)',
-                      borderRadius: '8px',
-                      fontSize: '12px',
-                    }}
-                  >
+          {/* User Statistics - Sorted by most wins */}
+          {sortedUserStats.length > 0 && (
+            <div>
+              <h4
+                style={{
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  color: 'var(--nextui-colors-foreground)',
+                  margin: '0 0 12px 0',
+                }}
+              >
+                Top Performers
+              </h4>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '8px',
+                }}
+              >
+                {sortedUserStats.map(([userId, userStat]) => {
+                  const user = userManager.getUserById(userId);
+                  return (
                     <div
-                      style={{
-                        fontWeight: '600',
-                        color: 'var(--nextui-colors-foreground)',
-                        marginBottom: '4px',
-                      }}
-                    >
-                      {user.name}
-                    </div>
-                    <div
+                      key={userId}
                       style={{
                         display: 'flex',
                         justifyContent: 'space-between',
-                        color: 'var(--nextui-colors-foreground)',
-                        opacity: 0.7,
+                        alignItems: 'center',
+                        padding: '8px',
+                        backgroundColor: 'var(--nextui-colors-default50)',
+                        borderRadius: '6px',
                       }}
                     >
-                      <span>Wins: {userStat.wins}</span>
-                      <span>Rate: {formatPercentage(userStat.winRate)}</span>
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '2px',
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: '14px',
+                            fontWeight: '600',
+                            color: 'var(--nextui-colors-foreground)',
+                          }}
+                        >
+                          {user?.name || 'Unknown'}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: '12px',
+                            color: 'var(--nextui-colors-foreground)',
+                            opacity: 0.7,
+                          }}
+                        >
+                          {userStat.totalSpins} spins
+                        </span>
+                      </div>
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'flex-end',
+                          gap: '2px',
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: '14px',
+                            fontWeight: '600',
+                            color: 'var(--nextui-colors-success)',
+                          }}
+                        >
+                          {userStat.wins} wins
+                        </span>
+                        <span
+                          style={{
+                            fontSize: '12px',
+                            color: 'var(--nextui-colors-foreground)',
+                            opacity: 0.7,
+                          }}
+                        >
+                          {formatPercentage(userStat.winRate)}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          )}
 
-          {/* Import/Export Section */}
+          {/* Reset Buttons */}
           <div>
             <h4
               style={{
-                fontSize: '14px',
+                fontSize: '16px',
                 fontWeight: '600',
                 color: 'var(--nextui-colors-foreground)',
-                margin: '0 0 8px 0',
+                margin: '0 0 12px 0',
               }}
             >
               Data Management
@@ -323,11 +395,21 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
                 gap: '8px',
               }}
             >
-              <Button size="sm" variant="light" onPress={handleExportUsers}>
-                Export Users (JSON)
+              <Button
+                size="sm"
+                variant="light"
+                onPress={handleExportUsers}
+                style={{ justifyContent: 'flex-start' }}
+              >
+                📤 Export Users (JSON)
               </Button>
-              <Button size="sm" variant="light" onPress={handleExportHistory}>
-                Export History (JSON)
+              <Button
+                size="sm"
+                variant="light"
+                onPress={handleExportHistory}
+                style={{ justifyContent: 'flex-start' }}
+              >
+                📤 Export History (JSON)
               </Button>
               <div
                 style={{
@@ -353,6 +435,24 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
                   Import Users
                 </span>
               </div>
+              <Button
+                size="sm"
+                color="warning"
+                variant="light"
+                onPress={handleResetHistory}
+                style={{ justifyContent: 'flex-start' }}
+              >
+                🗑️ Reset History
+              </Button>
+              <Button
+                size="sm"
+                color="danger"
+                variant="light"
+                onPress={handleResetAnalytics}
+                style={{ justifyContent: 'flex-start' }}
+              >
+                🗑️ Reset Analytics
+              </Button>
             </div>
           </div>
         </div>

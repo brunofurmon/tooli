@@ -37,7 +37,10 @@ export default function HomePage() {
   const [wheelSegments, setWheelSegments] = useState(
     userManager.getWheelSegments()
   );
+  const [isSpinning, setIsSpinning] = useState(false);
+  const [pendingResult, setPendingResult] = useState<WheelSegment | null>(null);
 
+  // Subscribe to user manager changes to update wheel segments immediately
   useEffect(() => {
     console.log('Setting up user manager subscription...');
     const unsubscribe = userManager.subscribe(() => {
@@ -55,34 +58,45 @@ export default function HomePage() {
     setWheelSegments(newSegments);
   };
 
+  const handleSpinStart = () => {
+    setIsSpinning(true);
+    setPendingResult(null);
+  };
+
   const handleSpinComplete = (result: WheelSegment) => {
-    // Record the spin result for the user
-    if (
-      result.id &&
-      result.id !== 'default' &&
-      result.id !== 'prize1' &&
-      result.id !== 'prize2' &&
-      result.id !== 'prize3' &&
-      result.id !== 'prize4'
-    ) {
-      // This is a user ID, record the win
-      const user = userManager.getUserById(result.id);
-      if (user) {
-        userManager.recordWin(result.id);
-        historyTracker.addSpinRecord(
-          result.id,
-          user.name,
-          result.label,
-          result.probability
-        );
-        console.log(
-          'Recorded spin for user:',
-          user.name,
-          'with result:',
-          result.label
-        );
+    setIsSpinning(false);
+    setPendingResult(result);
+
+    // Record the spin result for the user after a short delay to show the result
+    setTimeout(() => {
+      if (
+        result.id &&
+        result.id !== 'default' &&
+        result.id !== 'prize1' &&
+        result.id !== 'prize2' &&
+        result.id !== 'prize3' &&
+        result.id !== 'prize4'
+      ) {
+        // This is a user ID, record the win
+        const user = userManager.getUserById(result.id);
+        if (user) {
+          userManager.recordWin(result.id);
+          historyTracker.addSpinRecord(
+            result.id,
+            user.name,
+            result.label,
+            result.probability
+          );
+          console.log(
+            'Recorded spin for user:',
+            user.name,
+            'with result:',
+            result.label
+          );
+        }
       }
-    }
+      setPendingResult(null);
+    }, 2000); // Show result for 2 seconds before clearing
   };
 
   console.log(
@@ -139,7 +153,10 @@ export default function HomePage() {
                   <PickerWheel
                     size={450}
                     segments={wheelSegments}
+                    onSpinStart={handleSpinStart}
                     onSpinComplete={handleSpinComplete}
+                    isSpinning={isSpinning}
+                    pendingResult={pendingResult}
                   />
                 </div>
               </div>
@@ -174,7 +191,10 @@ export default function HomePage() {
                   justifyContent: 'center',
                 }}
               >
-                <HistoryPanel historyTracker={historyTracker} />
+                <HistoryPanel
+                  historyTracker={historyTracker}
+                  pendingResult={pendingResult}
+                />
               </div>
 
               {/* Analytics section */}

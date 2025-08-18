@@ -2,13 +2,16 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardBody, Button } from '@heroui/react';
 import { HistoryTracker, SpinRecord } from '@tooli/history-tracker';
+import { WheelSegment } from '@tooli/wheel-engine';
 
 interface HistoryPanelProps {
   historyTracker: HistoryTracker;
+  pendingResult?: WheelSegment | null;
 }
 
 export const HistoryPanel: React.FC<HistoryPanelProps> = ({
   historyTracker,
+  pendingResult,
 }) => {
   const [history, setHistory] = useState<SpinRecord[]>([]);
   const [displayLimit, setDisplayLimit] = useState(10);
@@ -81,6 +84,25 @@ export const HistoryPanel: React.FC<HistoryPanelProps> = ({
         </div>
       </CardHeader>
       <CardBody>
+        {/* Show pending result at the top */}
+        {pendingResult && (
+          <div
+            style={{
+              backgroundColor: 'var(--nextui-colors-success)',
+              color: 'white',
+              padding: '16px',
+              borderRadius: '8px',
+              marginBottom: '16px',
+              textAlign: 'center',
+              fontWeight: 'bold',
+              fontSize: '16px',
+            }}
+          >
+            🎉 Latest Result: {pendingResult.label} (
+            {formatProbability(pendingResult.probability)})
+          </div>
+        )}
+
         {history.length === 0 ? (
           <div
             style={{
