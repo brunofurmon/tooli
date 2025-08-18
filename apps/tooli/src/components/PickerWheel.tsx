@@ -68,7 +68,7 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
       // Animate the wheel
       const startRotation = rotation;
       const targetRotation = startRotation + 1440 + Math.random() * 360; // Multiple rotations + random
-      const duration = 1000; // 1 second for faster spin
+      const duration = 2000; // 2 seconds for slower spin
       const startTime = Date.now();
 
       const animate = () => {
@@ -207,7 +207,7 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
           />
           <div
             style={{
-              backgroundColor: 'var(--nextui-colors-background)',
+              backgroundColor: '#ffffff',
               borderRadius: '16px',
               padding: '32px',
               maxWidth: '500px',
@@ -228,7 +228,7 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
                 border: 'none',
                 fontSize: '24px',
                 cursor: 'pointer',
-                color: 'var(--nextui-colors-foreground)',
+                color: '#333333',
                 opacity: 0.7,
                 padding: '4px',
                 borderRadius: '4px',
@@ -258,7 +258,7 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
                 style={{
                   fontSize: '32px',
                   fontWeight: 'bold',
-                  color: 'var(--nextui-colors-foreground)',
+                  color: '#333333',
                   margin: '0 0 8px 0',
                 }}
               >
@@ -268,7 +268,7 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
                 style={{
                   fontSize: '24px',
                   fontWeight: '600',
-                  color: 'var(--nextui-colors-foreground)',
+                  color: '#333333',
                   margin: '0 0 16px 0',
                 }}
               >
@@ -277,7 +277,7 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
               <p
                 style={{
                   fontSize: '16px',
-                  color: 'var(--nextui-colors-foreground)',
+                  color: '#333333',
                   opacity: 0.7,
                   margin: 0,
                 }}

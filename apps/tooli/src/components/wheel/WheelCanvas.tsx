@@ -56,7 +56,6 @@ export const WheelCanvas: React.FC<WheelCanvasProps> = ({
     const centerX = size / 2;
     const centerY = size / 2;
     const radius = size / 2 - 20;
-    const segmentAngle = 360 / segments.length;
 
     // Clear canvas with a visible background
     ctx.fillStyle = '#ffffff';
@@ -71,11 +70,12 @@ export const WheelCanvas: React.FC<WheelCanvasProps> = ({
     ctx.lineWidth = 3;
     ctx.stroke();
 
+    let currentAngle = currentRotation * (Math.PI / 180);
+    
     segments.forEach((segment, index) => {
-      const startAngle =
-        (index * segmentAngle + currentRotation) * (Math.PI / 180);
-      const endAngle =
-        ((index + 1) * segmentAngle + currentRotation) * (Math.PI / 180);
+      const segmentAngle = segment.probability * 2 * Math.PI;
+      const startAngle = currentAngle;
+      const endAngle = currentAngle + segmentAngle;
 
       // Draw segment
       ctx.beginPath();
@@ -91,13 +91,15 @@ export const WheelCanvas: React.FC<WheelCanvasProps> = ({
       // Draw text
       ctx.save();
       ctx.translate(centerX, centerY);
-      ctx.rotate(startAngle + (segmentAngle * Math.PI) / 180 / 2);
+      ctx.rotate(startAngle + segmentAngle / 2);
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillStyle = '#ffffff';
       ctx.font = 'bold 18px Arial';
       ctx.fillText(segment.label, radius * 0.7, 0);
       ctx.restore();
+      
+      currentAngle = endAngle;
     });
 
     // Draw center circle
