@@ -3,15 +3,19 @@
 
 echo "🔍 Running pre-commit checks..."
 
-# Run linting on staged files
-echo "📝 Linting staged files..."
+# Run lint-staged
+echo "📝 Running lint-staged..."
 npx lint-staged
 
 # Run tests for affected projects
 echo "🧪 Running tests for affected projects..."
 npm run test:affected
 
-# Build affected projects only
+# Run health check to ensure routes are working
+echo "🏥 Running health check..."
+npm run health:check
+
+# Build affected projects
 echo "🏗️ Building affected projects..."
 npm run build:affected
 

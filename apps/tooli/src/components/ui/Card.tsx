@@ -1,15 +1,25 @@
 import React from 'react';
+import {
+  Card as NextUICard,
+  CardHeader,
+  CardBody,
+  CardFooter,
+} from '@heroui/react';
 
 interface CardProps {
   children: React.ReactNode;
   className?: string;
   padding?: 'sm' | 'md' | 'lg';
+  header?: React.ReactNode;
+  footer?: React.ReactNode;
 }
 
 export const Card: React.FC<CardProps> = ({
   children,
   className = '',
   padding = 'md',
+  header,
+  footer,
 }) => {
   const paddingClasses = {
     sm: 'p-4',
@@ -18,10 +28,10 @@ export const Card: React.FC<CardProps> = ({
   };
 
   return (
-    <div
-      className={`bg-white rounded-xl shadow-lg border border-gray-100 ${paddingClasses[padding]} ${className}`}
-    >
-      {children}
-    </div>
+    <NextUICard className={`${paddingClasses[padding]} ${className}`}>
+      {header && <CardHeader>{header}</CardHeader>}
+      <CardBody>{children}</CardBody>
+      {footer && <CardFooter>{footer}</CardFooter>}
+    </NextUICard>
   );
 };

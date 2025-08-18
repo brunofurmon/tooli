@@ -39,12 +39,37 @@ export const WheelCanvas: React.FC<WheelCanvasProps> = ({
     ctx: CanvasRenderingContext2D,
     currentRotation: number
   ) => {
+    console.log(
+      'Drawing wheel with segments:',
+      segments.length,
+      'size:',
+      size,
+      'rotation:',
+      rotation
+    );
+
+    if (segments.length === 0) {
+      console.warn('No segments to draw');
+      return;
+    }
+
     const centerX = size / 2;
     const centerY = size / 2;
     const radius = size / 2 - 20;
     const segmentAngle = 360 / segments.length;
 
-    ctx.clearRect(0, 0, size, size);
+    // Clear canvas with a visible background
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, size, size);
+
+    // Draw background circle
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+    ctx.fillStyle = '#f0f0f0';
+    ctx.fill();
+    ctx.strokeStyle = '#333333';
+    ctx.lineWidth = 3;
+    ctx.stroke();
 
     segments.forEach((segment, index) => {
       const startAngle =
@@ -59,7 +84,7 @@ export const WheelCanvas: React.FC<WheelCanvasProps> = ({
       ctx.closePath();
       ctx.fillStyle = colors[index % colors.length];
       ctx.fill();
-      ctx.strokeStyle = '#fff';
+      ctx.strokeStyle = '#ffffff';
       ctx.lineWidth = 2;
       ctx.stroke();
 
@@ -69,53 +94,103 @@ export const WheelCanvas: React.FC<WheelCanvasProps> = ({
       ctx.rotate(startAngle + (segmentAngle * Math.PI) / 180 / 2);
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillStyle = '#fff';
-      ctx.font = 'bold 16px Arial';
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 18px Arial';
       ctx.fillText(segment.label, radius * 0.7, 0);
       ctx.restore();
     });
 
     // Draw center circle
     ctx.beginPath();
-    ctx.arc(centerX, centerY, 15, 0, 2 * Math.PI);
-    ctx.fillStyle = '#fff';
+    ctx.arc(centerX, centerY, 20, 0, 2 * Math.PI);
+    ctx.fillStyle = '#ffffff';
     ctx.fill();
-    ctx.strokeStyle = '#333';
-    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#333333';
+    ctx.lineWidth = 4;
     ctx.stroke();
 
-    // Draw pointer
+    // Draw pointer (positioned at top, pointing down)
     ctx.beginPath();
-    ctx.moveTo(centerX, centerY - radius - 10);
-    ctx.lineTo(centerX - 10, centerY - radius + 10);
-    ctx.lineTo(centerX + 10, centerY - radius + 10);
+    ctx.moveTo(centerX, centerY - radius - 15);
+    ctx.lineTo(centerX - 15, centerY - radius + 15);
+    ctx.lineTo(centerX + 15, centerY - radius + 15);
     ctx.closePath();
     ctx.fillStyle = '#FF6B6B';
     ctx.fill();
+    ctx.strokeStyle = '#333333';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    console.log('Wheel drawing completed');
   };
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas) {
+      console.error('Canvas ref is null');
+      return;
+    }
 
     const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    if (!ctx) {
+      console.error('Could not get 2D context');
+      return;
+    }
 
+    console.log('Canvas context obtained, drawing wheel...');
     drawWheel(ctx, rotation);
   }, [rotation, segments, size]);
 
   return (
-    <div className="relative">
+    <div
+      style={{
+        position: 'relative',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
       <canvas
         ref={canvasRef}
         width={size}
         height={size}
-        className="cursor-pointer transition-transform hover:scale-105"
+        style={{
+          cursor: 'pointer',
+          transition: 'transform 0.2s ease',
+          borderRadius: '12px',
+          border: '3px solid #333333',
+          backgroundColor: '#ffffff',
+          display: 'block',
+          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+        }}
         onClick={onSpin}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = 'scale(1.02)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = 'scale(1)';
+        }}
       />
       {isSpinning && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="bg-black/50 text-white px-4 py-2 rounded-lg">
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              color: 'white',
+              padding: '12px 20px',
+              borderRadius: '8px',
+              fontSize: '16px',
+              fontWeight: 'bold',
+            }}
+          >
             Spinning...
           </div>
         </div>

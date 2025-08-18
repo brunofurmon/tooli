@@ -121,6 +121,10 @@ export class WheelEngine {
       this.spinDuration = config.spinDuration;
     }
   }
+
+  public updateSegments(segments: WheelSegment[]): void {
+    this.segments = [...segments];
+  }
 }
 
 // Export the original function for backward compatibility

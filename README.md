@@ -148,7 +148,7 @@ npm run e2e
 ## 🛠️ Technology Stack
 
 - **Frontend:** React 19, Next.js 15, TypeScript
-- **Styling:** Tailwind CSS
+- **Styling:** HeroUI with CSS Variables
 - **Build System:** Nx Monorepo
 - **Testing:** Jest, Playwright
 - **Quality:** ESLint, Prettier, Husky

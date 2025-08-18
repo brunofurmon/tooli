@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { Button } from '../ui/Button';
 
 interface WheelControlsProps {
   onSpin: () => void;
@@ -12,12 +13,14 @@ export const WheelControls: React.FC<WheelControlsProps> = ({
   isSpinning,
 }) => {
   return (
-    <button
-      onClick={onSpin}
+    <Button
+      onPress={onSpin}
       disabled={isSpinning}
-      className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors"
+      color="primary"
+      size="lg"
+      className="font-bold"
     >
       {isSpinning ? 'Spinning...' : 'Spin the Wheel!'}
-    </button>
+    </Button>
   );
 };

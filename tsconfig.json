@@ -20,6 +20,9 @@
     },
     {
       "path": "./apps/tooli"
+    },
+    {
+      "path": "./libs/user-management"
     }
   ]
 }

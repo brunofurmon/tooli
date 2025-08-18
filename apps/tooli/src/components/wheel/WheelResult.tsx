@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { Card, CardBody } from '@heroui/react';
 import { WheelSegment } from '@tooli/wheel-engine';
 
 interface WheelResultProps {
@@ -17,11 +18,36 @@ export const WheelResult: React.FC<WheelResultProps> = ({
   }
 
   return (
-    <div className="text-center">
-      <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg">
-        <h3 className="font-bold text-lg">🎉 Result: {result.label}</h3>
-        <p className="text-sm mt-1">Probability: {result.probability}%</p>
-      </div>
+    <div style={{ textAlign: 'center' }}>
+      <Card
+        style={{
+          backgroundColor: 'var(--nextui-colors-success50)',
+          border: '1px solid var(--nextui-colors-success200)',
+          color: 'var(--nextui-colors-success700)',
+        }}
+      >
+        <CardBody>
+          <h3
+            style={{
+              fontWeight: 'bold',
+              fontSize: '18px',
+              margin: 0,
+              marginBottom: '4px',
+            }}
+          >
+            🎉 Result: {result.label}
+          </h3>
+          <p
+            style={{
+              fontSize: '14px',
+              margin: 0,
+              opacity: 0.8,
+            }}
+          >
+            Probability: {(result.probability * 100).toFixed(1)}%
+          </p>
+        </CardBody>
+      </Card>
     </div>
   );
 };

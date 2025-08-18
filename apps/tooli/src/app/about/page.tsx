@@ -1,219 +1,393 @@
 import React from 'react';
 import { Navigation } from '../../components/Navigation';
-import { Card } from '../../components/ui/Card';
+import { Card, CardHeader, CardBody } from '@heroui/react';
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600">
+    <div
+      style={{
+        minHeight: '100vh',
+        backgroundColor: 'var(--nextui-colors-background)',
+      }}
+    >
       <Navigation />
-      <div className="container mx-auto px-4 py-8">
-        <div className="space-y-6">
-          <Card>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              🎯 About Tooli
-            </h2>
-            <p className="text-lg text-gray-700 leading-relaxed mb-4">
-              Tooli is a comprehensive platform designed specifically for
-              software engineering teams to enhance their day-to-day
-              productivity and collaboration. We provide a suite of interactive
-              tools that make development workflows more engaging and efficient.
-            </p>
-            <p className="text-lg text-gray-700 leading-relaxed">
-              Our platform is built with modern web technologies and follows
-              best practices for scalability, maintainability, and user
-              experience. Each tool is carefully crafted to integrate seamlessly
-              into your existing development processes.
-            </p>
-          </Card>
 
-          <Card>
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">
-              🎮 Tooli — Spinning Wheel
-            </h3>
-            <p className="text-lg text-gray-700 leading-relaxed mb-4">
-              Our flagship interactive decision-making tool designed for team
-              activities, random selections, and fun team building exercises.
-              The spinning wheel provides a fair and engaging way to make
-              decisions when multiple options are available.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-              <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                <h4 className="font-semibold text-blue-800 mb-2">
-                  Fair Randomization
-                </h4>
-                <p className="text-blue-700">
-                  Uses probability-based algorithms for unbiased results
-                </p>
-              </div>
-              <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                <h4 className="font-semibold text-green-800 mb-2">
-                  Team Engagement
-                </h4>
-                <p className="text-green-700">
-                  Interactive animations keep teams engaged and excited
-                </p>
-              </div>
-            </div>
-          </Card>
+      <main
+        style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '32px 16px',
+        }}
+      >
+        <div style={{ marginBottom: '48px' }}>
+          <h2
+            style={{
+              fontSize: '32px',
+              fontWeight: 'bold',
+              color: 'var(--nextui-colors-foreground)',
+              margin: '0 0 16px 0',
+            }}
+          >
+            🎯 About Tooli
+          </h2>
+          <p
+            style={{
+              fontSize: '18px',
+              color: 'var(--nextui-colors-foreground)',
+              opacity: 0.8,
+              lineHeight: '1.6',
+              margin: '0 0 16px 0',
+            }}
+          >
+            Tooli is a comprehensive platform designed to enhance team
+            decision-making and collaboration. Our tools help teams make better
+            decisions faster, from simple random selections to complex voting
+            systems.
+          </p>
+          <p
+            style={{
+              fontSize: '18px',
+              color: 'var(--nextui-colors-foreground)',
+              opacity: 0.8,
+              lineHeight: '1.6',
+              margin: 0,
+            }}
+          >
+            Built with modern web technologies and designed for seamless team
+            collaboration.
+          </p>
+        </div>
 
-          <Card>
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">
-              🛠️ Available Tools
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl border border-green-200">
-                <h4 className="text-xl font-semibold text-green-800 mb-3">
-                  🎮 Spinning Wheel
+        <div style={{ marginBottom: '48px' }}>
+          <h3
+            style={{
+              fontSize: '24px',
+              fontWeight: 'bold',
+              color: 'var(--nextui-colors-foreground)',
+              margin: '0 0 16px 0',
+            }}
+          >
+            🚀 Features
+          </h3>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '16px',
+            }}
+          >
+            <Card>
+              <CardHeader>
+                <h4
+                  style={{
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    color: 'var(--nextui-colors-foreground)',
+                    margin: 0,
+                  }}
+                >
+                  🎲 Spinning Wheel
                 </h4>
-                <p className="text-green-700 mb-4">
-                  Interactive decision-making tool for team activities, random
-                  selections, and fun team building exercises.
+              </CardHeader>
+              <CardBody>
+                <p
+                  style={{
+                    color: 'var(--nextui-colors-foreground)',
+                    opacity: 0.8,
+                    margin: 0,
+                  }}
+                >
+                  Interactive spinning wheel with customizable segments and
+                  weighted probabilities
                 </p>
-                <span className="inline-block bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                  Available Now
+              </CardBody>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <h4
+                  style={{
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    color: 'var(--nextui-colors-foreground)',
+                    margin: 0,
+                  }}
+                >
+                  👥 User Management
+                </h4>
+              </CardHeader>
+              <CardBody>
+                <p
+                  style={{
+                    color: 'var(--nextui-colors-foreground)',
+                    opacity: 0.8,
+                    margin: 0,
+                  }}
+                >
+                  Add, edit, and manage participants with custom weights and
+                  participation settings
+                </p>
+              </CardBody>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <h4
+                  style={{
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    color: 'var(--nextui-colors-foreground)',
+                    margin: 0,
+                  }}
+                >
+                  📊 Analytics
+                </h4>
+              </CardHeader>
+              <CardBody>
+                <p
+                  style={{
+                    color: 'var(--nextui-colors-foreground)',
+                    opacity: 0.8,
+                    margin: 0,
+                  }}
+                >
+                  Track spin history, win rates, and user participation
+                  statistics
+                </p>
+              </CardBody>
+            </Card>
+          </div>
+        </div>
+
+        <div style={{ marginBottom: '48px' }}>
+          <h3
+            style={{
+              fontSize: '24px',
+              fontWeight: 'bold',
+              color: 'var(--nextui-colors-foreground)',
+              margin: '0 0 16px 0',
+            }}
+          >
+            🛠️ Technology Stack
+          </h3>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+              gap: '16px',
+            }}
+          >
+            <Card>
+              <CardBody style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '32px', marginBottom: '8px' }}>⚛️</div>
+                <span
+                  style={{
+                    fontWeight: '500',
+                    color: 'var(--nextui-colors-foreground)',
+                  }}
+                >
+                  React 19
                 </span>
-              </div>
-              <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-xl border border-yellow-200">
-                <h4 className="text-xl font-semibold text-yellow-800 mb-3">
+              </CardBody>
+            </Card>
+
+            <Card>
+              <CardBody style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '32px', marginBottom: '8px' }}>▲</div>
+                <span
+                  style={{
+                    fontWeight: '500',
+                    color: 'var(--nextui-colors-foreground)',
+                  }}
+                >
+                  Next.js 15
+                </span>
+              </CardBody>
+            </Card>
+
+            <Card>
+              <CardBody style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '32px', marginBottom: '8px' }}>📘</div>
+                <span
+                  style={{
+                    fontWeight: '500',
+                    color: 'var(--nextui-colors-foreground)',
+                  }}
+                >
+                  TypeScript
+                </span>
+              </CardBody>
+            </Card>
+
+            <Card>
+              <CardBody style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '32px', marginBottom: '8px' }}>🔧</div>
+                <span
+                  style={{
+                    fontWeight: '500',
+                    color: 'var(--nextui-colors-foreground)',
+                  }}
+                >
+                  Nx Monorepo
+                </span>
+              </CardBody>
+            </Card>
+
+            <Card>
+              <CardBody style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '32px', marginBottom: '8px' }}>🎨</div>
+                <span
+                  style={{
+                    fontWeight: '500',
+                    color: 'var(--nextui-colors-foreground)',
+                  }}
+                >
+                  HeroUI
+                </span>
+              </CardBody>
+            </Card>
+          </div>
+        </div>
+
+        <div style={{ marginBottom: '48px' }}>
+          <h3
+            style={{
+              fontSize: '24px',
+              fontWeight: 'bold',
+              color: 'var(--nextui-colors-foreground)',
+              margin: '0 0 16px 0',
+            }}
+          >
+            🎯 Why Tooli?
+          </h3>
+          <p
+            style={{
+              fontSize: '18px',
+              color: 'var(--nextui-colors-foreground)',
+              opacity: 0.8,
+              lineHeight: '1.6',
+              margin: '0 0 16px 0',
+            }}
+          >
+            Tooli was created to solve common team decision-making challenges.
+            Whether you need to randomly select a team member, make fair
+            decisions, or track participation, Tooli provides the tools you
+            need.
+          </p>
+          <p
+            style={{
+              fontSize: '18px',
+              color: 'var(--nextui-colors-foreground)',
+              opacity: 0.8,
+              lineHeight: '1.6',
+              margin: 0,
+            }}
+          >
+            Our platform is designed to be simple, fast, and reliable for teams
+            of any size.
+          </p>
+        </div>
+
+        <div>
+          <h3
+            style={{
+              fontSize: '24px',
+              fontWeight: 'bold',
+              color: 'var(--nextui-colors-foreground)',
+              margin: '0 0 16px 0',
+            }}
+          >
+            🗺️ Roadmap
+          </h3>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '16px',
+            }}
+          >
+            <Card>
+              <CardHeader>
+                <h4
+                  style={{
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    color: 'var(--nextui-colors-foreground)',
+                    margin: 0,
+                  }}
+                >
+                  🎲 Advanced Spinning Wheels
+                </h4>
+              </CardHeader>
+              <CardBody>
+                <p
+                  style={{
+                    color: 'var(--nextui-colors-foreground)',
+                    opacity: 0.8,
+                    margin: 0,
+                  }}
+                >
+                  Multiple wheel types, custom themes, and advanced probability
+                  settings
+                </p>
+              </CardBody>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <h4
+                  style={{
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    color: 'var(--nextui-colors-foreground)',
+                    margin: 0,
+                  }}
+                >
                   🃏 Scrum Poker
                 </h4>
-                <p className="text-yellow-700 mb-4">
-                  Agile estimation tool for story point voting and team
-                  consensus building during sprint planning.
+              </CardHeader>
+              <CardBody>
+                <p
+                  style={{
+                    color: 'var(--nextui-colors-foreground)',
+                    opacity: 0.8,
+                    margin: 0,
+                  }}
+                >
+                  Story point estimation and team voting tools for agile
+                  development
                 </p>
-                <span className="inline-block bg-yellow-200 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">
-                  Coming Soon
-                </span>
-              </div>
-              <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border border-blue-200">
-                <h4 className="text-xl font-semibold text-blue-800 mb-3">
-                  📊 Dev Productivity Tools
-                </h4>
-                <p className="text-blue-700 mb-4">
-                  Suite of productivity tools including time tracking, task
-                  management, and team analytics.
-                </p>
-                <span className="inline-block bg-blue-200 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
-                  Coming Soon
-                </span>
-              </div>
-            </div>
-          </Card>
+              </CardBody>
+            </Card>
 
-          <Card>
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">
-              🛠️ Built with
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-              <div className="bg-gray-50 p-4 rounded-lg text-center border border-gray-200">
-                <div className="text-2xl mb-2">⚛️</div>
-                <span className="font-medium text-gray-700">React 19</span>
-              </div>
-              <div className="bg-gray-50 p-4 rounded-lg text-center border border-gray-200">
-                <div className="text-2xl mb-2">▲</div>
-                <span className="font-medium text-gray-700">Next.js 15</span>
-              </div>
-              <div className="bg-gray-50 p-4 rounded-lg text-center border border-gray-200">
-                <div className="text-2xl mb-2">📘</div>
-                <span className="font-medium text-gray-700">TypeScript</span>
-              </div>
-              <div className="bg-gray-50 p-4 rounded-lg text-center border border-gray-200">
-                <div className="text-2xl mb-2">🔧</div>
-                <span className="font-medium text-gray-700">Nx Monorepo</span>
-              </div>
-              <div className="bg-gray-50 p-4 rounded-lg text-center border border-gray-200">
-                <div className="text-2xl mb-2">🎨</div>
-                <span className="font-medium text-gray-700">Tailwind CSS</span>
-              </div>
-            </div>
-          </Card>
-
-          <Card>
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">
-              🏗️ Architecture
-            </h3>
-            <p className="text-lg text-gray-700 mb-4">
-              Tooli uses a modern monorepo architecture powered by Nx,
-              providing:
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                <h4 className="font-semibold text-blue-800 mb-2">
-                  Scalability
+            <Card>
+              <CardHeader>
+                <h4
+                  style={{
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    color: 'var(--nextui-colors-foreground)',
+                    margin: 0,
+                  }}
+                >
+                  📈 Team Analytics
                 </h4>
-                <p className="text-blue-700">
-                  Easy to add new tools and features
+              </CardHeader>
+              <CardBody>
+                <p
+                  style={{
+                    color: 'var(--nextui-colors-foreground)',
+                    opacity: 0.8,
+                    margin: 0,
+                  }}
+                >
+                  Comprehensive team performance metrics and decision tracking
                 </p>
-              </div>
-              <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                <h4 className="font-semibold text-green-800 mb-2">
-                  Maintainability
-                </h4>
-                <p className="text-green-700">
-                  Shared libraries and consistent patterns
-                </p>
-              </div>
-              <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
-                <h4 className="font-semibold text-purple-800 mb-2">
-                  Performance
-                </h4>
-                <p className="text-purple-700">
-                  Optimized builds and efficient caching
-                </p>
-              </div>
-              <div className="bg-orange-50 p-4 rounded-lg border border-orange-200">
-                <h4 className="font-semibold text-orange-800 mb-2">
-                  Developer Experience
-                </h4>
-                <p className="text-orange-700">
-                  Hot reloading, type safety, and comprehensive tooling
-                </p>
-              </div>
-            </div>
-          </Card>
-
-          <Card>
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">
-              🗺️ Roadmap
-            </h3>
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <div className="w-6 h-6 bg-green-500 rounded-full flex-shrink-0 mt-1"></div>
-                <div>
-                  <h4 className="text-lg font-semibold text-gray-900">
-                    Phase 1: Foundation
-                  </h4>
-                  <p className="text-gray-600">
-                    Spinning Wheel tool with basic functionality
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-4">
-                <div className="w-6 h-6 bg-yellow-500 rounded-full flex-shrink-0 mt-1"></div>
-                <div>
-                  <h4 className="text-lg font-semibold text-gray-900">
-                    Phase 2: Agile Tools
-                  </h4>
-                  <p className="text-gray-600">
-                    Scrum Poker and estimation tools
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-4">
-                <div className="w-6 h-6 bg-gray-400 rounded-full flex-shrink-0 mt-1"></div>
-                <div>
-                  <h4 className="text-lg font-semibold text-gray-900">
-                    Phase 3: Productivity Suite
-                  </h4>
-                  <p className="text-gray-600">
-                    Advanced productivity and analytics tools
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Card>
+              </CardBody>
+            </Card>
+          </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
