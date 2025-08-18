@@ -20,15 +20,26 @@ const calculateResultFromPosition = (rotation: number, segments: WheelSegment[])
   // Normalize rotation to 0-360 degrees
   const normalizedRotation = ((rotation % 360) + 360) % 360;
   
-  // The pointer is at the top (0 degrees), so we need to find which segment is at the top
+  // The pointer is at the TOP (270 degrees in canvas coordinates)
+  // The wheel is drawn starting from currentRotation
+  // We need to find which segment contains the position that's currently at the top (270 degrees)
+  
+  // Convert canvas coordinates to wheel coordinates
+  // In canvas: 0° = right, 90° = down, 180° = left, 270° = up (pointer position)
+  // In wheel: 0° = first segment start, 90° = second segment, etc.
+  
+  // The pointer is at 270° in canvas coords, so we need to find what's at 270° relative to the wheel
+  const pointerAngle = 270; // Pointer is at top (270° in canvas)
+  const wheelAngle = (pointerAngle - normalizedRotation + 360) % 360;
+  
   let currentAngle = 0;
   
   for (const segment of segments) {
     const segmentAngle = segment.probability * 360; // Convert probability to degrees
     const endAngle = currentAngle + segmentAngle;
     
-    // Check if the pointer (0 degrees) falls within this segment
-    if (normalizedRotation >= currentAngle && normalizedRotation < endAngle) {
+    // Check if the pointer position falls within this segment
+    if (wheelAngle >= currentAngle && wheelAngle < endAngle) {
       return segment;
     }
     
@@ -108,7 +119,7 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
           // Spin completed - calculate result based on final position
           const finalRotation = currentRotation;
           const result = calculateResultFromPosition(finalRotation, segments);
-          
+
           setIsWheelSpinning(false);
           setResult(result);
           setShowWinnerModal(true);
