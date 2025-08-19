@@ -166,7 +166,6 @@ export default function HomePage() {
                     onSpinStart={handleSpinStart}
                     onSpinComplete={handleSpinComplete}
                     isSpinning={isSpinning}
-                    pendingResult={pendingResult}
                   />
                 </div>
               </div>

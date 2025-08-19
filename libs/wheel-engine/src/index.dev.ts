@@ -1,1 +1,1 @@
-export * from './lib/wheel-engine';
+export * from './lib/wheel-engine.js';
