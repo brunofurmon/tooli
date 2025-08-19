@@ -38,18 +38,7 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
     };
   }, [historyTracker, userManager]);
 
-  const handleExportUsers = () => {
-    const data = userManager.exportToJSON();
-    const blob = new Blob([data], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `tooli-users-${new Date().toISOString().split('T')[0]}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
+
 
   const handleExportHistory = () => {
     const data = historyTracker.exportToJSON();
@@ -64,22 +53,7 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
     URL.revokeObjectURL(url);
   };
 
-  const handleImportUsers = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        try {
-          const data = JSON.parse(e.target?.result as string);
-          userManager.importFromJSON(data);
-        } catch (error) {
-          console.error('Error importing users:', error);
-          alert('Error importing users. Please check the file format.');
-        }
-      };
-      reader.readAsText(file);
-    }
-  };
+
 
   const handleResetHistory = () => {
     if (
@@ -405,43 +379,11 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
               <Button
                 size="sm"
                 variant="light"
-                onPress={handleExportUsers}
-                style={{ justifyContent: 'flex-start' }}
-              >
-                📤 Export Users (JSON)
-              </Button>
-              <Button
-                size="sm"
-                variant="light"
                 onPress={handleExportHistory}
                 style={{ justifyContent: 'flex-start' }}
               >
                 📤 Export History (JSON)
               </Button>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                }}
-              >
-                <Input
-                  type="file"
-                  accept=".json"
-                  size="sm"
-                  onChange={handleImportUsers}
-                  style={{ flex: 1 }}
-                />
-                <span
-                  style={{
-                    fontSize: '12px',
-                    color: 'var(--nextui-colors-foreground)',
-                    opacity: 0.7,
-                  }}
-                >
-                  Import Users
-                </span>
-              </div>
               <Button
                 size="sm"
                 color="danger"

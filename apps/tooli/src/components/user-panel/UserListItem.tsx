@@ -150,14 +150,31 @@ export const UserListItem: React.FC<UserListItemProps> = ({
           </span>
         </div>
 
-        <Button
-          size="sm"
-          color="danger"
-          variant="light"
-          onPress={handleRemoveUser}
+        <button
+          onClick={handleRemoveUser}
+          style={{
+            background: 'none',
+            border: 'none',
+            color: '#ef4444',
+            fontSize: '18px',
+            cursor: 'pointer',
+            padding: '4px',
+            borderRadius: '4px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'background-color 0.2s ease',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = 'transparent';
+          }}
+          title="Remove user"
         >
-          Remove
-        </Button>
+          ✕
+        </button>
       </div>
     </div>
   );

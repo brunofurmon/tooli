@@ -13,7 +13,9 @@ import { WheelSegment } from '@tooli/wheel-engine';
 export default function HomePage() {
   // Set page title
   useEffect(() => {
-    document.title = 'Tooli - Spin';
+    if (typeof window !== 'undefined') {
+      document.title = 'Tooli - Spin';
+    }
   }, []);
   const [userManager] = useState(() => {
     const manager = new UserManager();

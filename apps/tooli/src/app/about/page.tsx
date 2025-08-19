@@ -7,7 +7,9 @@ import { Card, CardHeader, CardBody } from '@heroui/react';
 export default function AboutPage() {
   // Set page title
   useEffect(() => {
-    document.title = 'Tooli - About';
+    if (typeof window !== 'undefined') {
+      document.title = 'Tooli - About';
+    }
   }, []);
   return (
     <div
