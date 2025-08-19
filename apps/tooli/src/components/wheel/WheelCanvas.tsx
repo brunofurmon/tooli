@@ -159,7 +159,7 @@ export const WheelCanvas: React.FC<WheelCanvasProps> = ({
         style={{
           cursor: 'pointer',
           transition: 'transform 0.2s ease',
-          borderRadius: '12px',
+          borderRadius: '16px',
           border: '3px solid #333333',
           backgroundColor: '#ffffff',
           display: 'block',

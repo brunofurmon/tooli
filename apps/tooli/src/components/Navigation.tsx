@@ -18,6 +18,7 @@ export const Navigation: React.FC = () => {
         position: 'sticky',
         top: 0,
         zIndex: 50,
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
       }}
     >
       <div
@@ -32,7 +33,7 @@ export const Navigation: React.FC = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            height: '64px',
+            height: '70px',
           }}
         >
           {/* Logo */}
@@ -40,7 +41,7 @@ export const Navigation: React.FC = () => {
             <Link
               href="/"
               style={{
-                fontSize: '24px',
+                fontSize: '26px',
                 fontWeight: 'bold',
                 color: 'var(--nextui-colors-foreground)',
                 textDecoration: 'none',
@@ -73,12 +74,12 @@ export const Navigation: React.FC = () => {
               }}
             >
               <Link href="/">
-                <Button variant="light" size="sm">
+                <Button variant="light" size="md">
                   🎲 Spin
                 </Button>
               </Link>
               <Link href="/about">
-                <Button variant="light" size="sm">
+                <Button variant="light" size="md">
                   ℹ️ About
                 </Button>
               </Link>
@@ -90,7 +91,7 @@ export const Navigation: React.FC = () => {
             <Switch
               isSelected={theme === 'dark'}
               onValueChange={(checked) => setTheme(checked ? 'dark' : 'light')}
-              size="sm"
+              size="md"
               color="primary"
               startContent={<SunIcon />}
               endContent={<MoonIcon />}

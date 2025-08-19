@@ -137,6 +137,10 @@ export default function HomePage() {
           <div
             style={{
               marginBottom: '32px',
+              padding: '24px',
+              backgroundColor: 'var(--nextui-colors-background)',
+              borderRadius: '16px',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
             }}
           >
             {/* Desktop Layout: Wheel on left, User Panel on right */}
@@ -186,6 +190,10 @@ export default function HomePage() {
           <div
             style={{
               marginBottom: '32px',
+              padding: '24px',
+              backgroundColor: 'var(--nextui-colors-background)',
+              borderRadius: '16px',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
             }}
           >
             {/* Desktop Layout: History on left, Analytics on right */}

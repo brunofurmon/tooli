@@ -28,7 +28,13 @@ export const Card: React.FC<CardProps> = ({
   };
 
   return (
-    <NextUICard className={`${paddingClasses[padding]} ${className}`}>
+    <NextUICard 
+      className={`${paddingClasses[padding]} ${className}`}
+      style={{
+        borderRadius: '12px',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+      }}
+    >
       {header && <CardHeader>{header}</CardHeader>}
       <CardBody>{children}</CardBody>
       {footer && <CardFooter>{footer}</CardFooter>}

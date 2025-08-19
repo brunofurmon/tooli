@@ -206,7 +206,7 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
             alignItems: 'center',
             justifyContent: 'center',
             backgroundColor: '#f0f0f0',
-            borderRadius: '12px',
+            borderRadius: '16px',
             border: '3px solid #333333',
             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
             cursor: 'not-allowed',

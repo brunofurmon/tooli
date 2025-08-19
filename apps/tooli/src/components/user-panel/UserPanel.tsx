@@ -104,13 +104,23 @@ export const UserPanel: React.FC<UserPanelProps> = ({
                   }}
                   style={{
                     fontSize: '12px',
-                    padding: '4px 8px',
-                    backgroundColor: 'var(--nextui-colors-primary)',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '4px',
+                    padding: '6px 12px',
+                    backgroundColor: 'var(--nextui-colors-secondary)',
+                    color: 'var(--nextui-colors-secondaryForeground)',
+                    border: '1px solid var(--nextui-colors-secondaryBorder)',
+                    borderRadius: '8px',
                     cursor: 'pointer',
                     fontWeight: '500',
+                    transition: 'all 0.2s ease',
+                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-1px)';
+                    e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.15)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
                   }}
                 >
                   Normalize
@@ -191,15 +201,25 @@ export const UserPanel: React.FC<UserPanelProps> = ({
                   style={{
                     fontSize: '12px',
                     padding: '6px 12px',
-                    backgroundColor: 'var(--nextui-colors-primary)',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '4px',
+                    backgroundColor: 'var(--nextui-colors-secondary)',
+                    color: 'var(--nextui-colors-secondaryForeground)',
+                    border: '1px solid var(--nextui-colors-secondaryBorder)',
+                    borderRadius: '8px',
                     cursor: 'pointer',
                     fontWeight: '500',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '4px',
+                    transition: 'all 0.2s ease',
+                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-1px)';
+                    e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.15)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
                   }}
                 >
                   📤 Export Users
