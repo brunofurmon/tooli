@@ -22,9 +22,38 @@ npm install
 
 # Start the development server
 npm run wheel:dev
+
+# Or use Turbopack for faster development
+npm run wheel:dev:turbo
 ```
 
 The application will be available at `http://localhost:3000`
+
+## 🚀 Production Deployment
+
+### Build for Production
+```bash
+# Build all libraries and the application
+npm run libs:build
+npm run wheel:build
+```
+
+### Start Production Server
+```bash
+# Start the production server
+npm run wheel:start
+```
+
+### Production URLs
+- **Main App**: http://localhost:3000/
+- **Health Check**: http://localhost:3000/health
+- **API Health**: http://localhost:3000/api/health
+
+### Performance Metrics
+- **Bundle Size**: 166 kB (First Load JS)
+- **Build Time**: ~14 seconds
+- **Static Pages**: 8 pages pre-rendered
+- **API Routes**: 3 dynamic routes
 
 ## 🎮 Features
 
@@ -71,7 +100,7 @@ The application will be available at `http://localhost:3000`
 - Technology stack and architecture details
 - Feature overview and capabilities
 
-## 🆕 Latest Improvements (v1.2.0)
+## 🆕 Latest Improvements (v1.4.3)
 
 ### 🎯 Enhanced Accuracy
 
@@ -84,12 +113,17 @@ The application will be available at `http://localhost:3000`
 - **Consistent Modal**: Winner modal with stable white background and dark text
 - **Proper Contrast**: All text elements visible in both light and dark modes
 - **Smooth Animations**: Optimized 2-second spin duration for better experience
+- **Dark Mode Shadows**: Enhanced visibility with high contrast shadows
+- **Wheel Colors**: Vibrant 12-color palette displaying correctly
+- **Theme Toggle**: 2× size for better accessibility
 
 ### ⚡ Performance & Reliability
 
 - **Instant Response**: Eliminated delays in wheel spinning
 - **Real-time Updates**: Immediate weight redistribution when users are toggled
 - **Robust Synchronization**: Reliable state management and updates
+- **Production Build**: Optimized production deployment with 166 kB bundle size
+- **Module Resolution**: Fixed conflicts between development and production builds
 
 ## 🛠️ Development
 
