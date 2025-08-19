@@ -59,7 +59,7 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
   pendingResult,
 }) => {
   // Check if there are no active users (only default segments)
-  const hasNoActiveUsers = segments.length > 0 && segments.every(segment => 
+  const hasNoActiveUsers = segments.length > 0 && segments.every(segment =>
     segment.id === 'prize1' || segment.id === 'prize2' || segment.id === 'prize3' || segment.id === 'prize4'
   );
   const [wheelEngine] = useState(() => {
@@ -77,12 +77,6 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
   useEffect(() => {
     console.log('Current wheel segments:', segments.length);
     console.log('Segment probabilities:', segments.map(s => `${s.label}: ${(s.probability * 100).toFixed(1)}%`));
-    wheelEngine.updateSegments(segments);
-  }, [segments, wheelEngine]);
-
-  // Update wheel segments when they change
-  useEffect(() => {
-    console.log('Updated wheel segments:', segments.length);
     wheelEngine.updateSegments(segments);
   }, [segments, wheelEngine]);
 
@@ -194,8 +188,8 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
             margin: 0,
           }}
         >
-          {hasNoActiveUsers 
-            ? 'Enable some users to start making decisions!' 
+          {hasNoActiveUsers
+            ? 'Enable some users to start making decisions!'
             : 'Click the wheel to spin and make a decision'
           }
         </p>
@@ -252,7 +246,6 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
       ) : (
         // Normal wheel when users are active
         <div
-          onClick={handleSpin}
           style={{
             cursor: isWheelSpinning || isSpinning ? 'not-allowed' : 'pointer',
             position: 'relative',
