@@ -1,6 +1,6 @@
 {
   "name": "@tooli/source",
-  "version": "1.4.1",
+  "version": "1.4.3",
   "license": "MIT",
   "scripts": {
     "dev": "nx dev tooli",
