@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardBody, Button, Input } from '@heroui/react';
+import { Card, CardHeader, CardBody, Button } from '@heroui/react';
 import { HistoryTracker, HistoryStats } from '@tooli/history-tracker';
 import { UserManager } from '@tooli/user-management';
 
@@ -38,8 +38,6 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
     };
   }, [historyTracker, userManager]);
 
-
-
   const handleExportHistory = () => {
     const data = historyTracker.exportToJSON();
     const blob = new Blob([data], { type: 'application/json' });
@@ -52,8 +50,6 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
-
-
 
   const handleResetHistory = () => {
     if (
@@ -78,11 +74,6 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
       // Force update by triggering a save
       userManager.forceUpdate();
     }
-  };
-
-  const handleResetAnalytics = () => {
-    // This is now the same as handleResetHistory
-    handleResetHistory();
   };
 
   const formatDate = (date: Date | null): string => {

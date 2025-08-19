@@ -18,7 +18,7 @@ export const Navigation: React.FC = () => {
         position: 'sticky',
         top: 0,
         zIndex: 50,
-        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+        boxShadow: 'var(--shadow-md)',
       }}
     >
       <div
@@ -87,16 +87,22 @@ export const Navigation: React.FC = () => {
           </div>
 
           {/* Theme Toggle */}
-          <div style={{ marginLeft: '16px' }}>
+          <div
+            style={{
+              marginLeft: '16px',
+              transform: 'scale(2)',
+              transformOrigin: 'right center',
+            }}
+          >
             <Switch
               isSelected={theme === 'dark'}
               onValueChange={(checked) => setTheme(checked ? 'dark' : 'light')}
-              size="md"
+              size="lg"
               color="primary"
               thumbIcon={theme === 'dark' ? <MoonIcon /> : <SunIcon />}
               classNames={{
-                wrapper: "group-data-[selected=true]:bg-primary",
-                thumb: "bg-background",
+                wrapper: 'group-data-[selected=true]:bg-primary',
+                thumb: 'bg-background',
               }}
             />
           </div>

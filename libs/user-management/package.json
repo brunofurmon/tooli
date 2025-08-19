@@ -9,7 +9,7 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "development": "./src/index.ts",
+      "development": "./src/index.dev.ts",
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
@@ -19,6 +19,6 @@
     "build": "tsc --build tsconfig.lib.json"
   },
   "dependencies": {
-    "tslib": "^2.3.0"
+    "@tooli/wheel-engine": "workspace:*"
   }
 }

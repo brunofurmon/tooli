@@ -12,11 +12,13 @@ export interface PickerWheelProps {
   onSpinComplete?: (result: WheelSegment) => void;
   onSpinStart?: () => void;
   isSpinning?: boolean;
-  pendingResult?: WheelSegment | null;
 }
 
 // Helper function to calculate result based on wheel position
-const calculateResultFromPosition = (rotation: number, segments: WheelSegment[]): WheelSegment => {
+const calculateResultFromPosition = (
+  rotation: number,
+  segments: WheelSegment[]
+): WheelSegment => {
   // Normalize rotation to 0-360 degrees
   const normalizedRotation = ((rotation % 360) + 360) % 360;
 
@@ -47,7 +49,14 @@ const calculateResultFromPosition = (rotation: number, segments: WheelSegment[])
   }
 
   // Fallback to first segment if no match found
-  return segments[0] || { id: 'default', label: 'Default', probability: 1, color: '#cccccc' };
+  return (
+    segments[0] || {
+      id: 'default',
+      label: 'Default',
+      probability: 1,
+      color: '#cccccc',
+    }
+  );
 };
 
 export const PickerWheel: React.FC<PickerWheelProps> = ({
@@ -56,12 +65,17 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
   onSpinComplete,
   onSpinStart,
   isSpinning = false,
-  pendingResult,
 }) => {
   // Check if there are no active users (only default segments)
-  const hasNoActiveUsers = segments.length > 0 && segments.every(segment =>
-    segment.id === 'prize1' || segment.id === 'prize2' || segment.id === 'prize3' || segment.id === 'prize4'
-  );
+  const hasNoActiveUsers =
+    segments.length > 0 &&
+    segments.every(
+      (segment) =>
+        segment.id === 'prize1' ||
+        segment.id === 'prize2' ||
+        segment.id === 'prize3' ||
+        segment.id === 'prize4'
+    );
   const [wheelEngine] = useState(() => {
     console.log('Initializing wheel engine with segments:', segments.length);
     return new WheelEngine({ segments });
@@ -76,7 +90,10 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
   // Update wheel segments when they change
   useEffect(() => {
     console.log('Current wheel segments:', segments.length);
-    console.log('Segment probabilities:', segments.map(s => `${s.label}: ${(s.probability * 100).toFixed(1)}%`));
+    console.log(
+      'Segment probabilities:',
+      segments.map((s) => `${s.label}: ${(s.probability * 100).toFixed(1)}%`)
+    );
     wheelEngine.updateSegments(segments);
   }, [segments, wheelEngine]);
 
@@ -190,8 +207,7 @@ export const PickerWheel: React.FC<PickerWheelProps> = ({
         >
           {hasNoActiveUsers
             ? 'Enable some users to start making decisions!'
-            : 'Click the wheel to spin and make a decision'
-          }
+            : 'Click the wheel to spin and make a decision'}
         </p>
       </div>
 

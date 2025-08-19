@@ -1,6 +1,6 @@
 {
   "name": "@tooli/source",
-  "version": "0.0.0",
+  "version": "1.4.1",
   "license": "MIT",
   "scripts": {
     "dev": "nx dev tooli",
@@ -24,6 +24,7 @@
     "format": "nx format:write",
     "format:check": "nx format:check",
     "wheel:dev": "nx dev tooli --port=3000",
+    "wheel:dev:turbo": "nx dev tooli --port=3000 --turbo",
     "wheel:start": "nx start tooli --port=3000",
     "wheel:build": "nx build tooli --skip-nx-cache",
     "wheel:test": "nx test tooli",
@@ -35,6 +36,7 @@
     "precommit": "npm run lint && npm run test:affected && npm run build:all",
     "prepare": "husky install",
     "docs:dev": "nx dev tooli --port=3001",
+    "docs:dev:turbo": "nx dev tooli --port=3001 --turbo",
     "docs:build": "nx build tooli",
     "docs:serve": "nx serve-static tooli --port=3001",
     "health:check": "node scripts/health-check.js",
@@ -49,7 +51,10 @@
     "dev:auto-monitor:fast": "npm run monitor:routes:fast & npm run wheel:dev",
     "check:alignment": "node scripts/visual-alignment-check.js",
     "check:all": "npm run health:check && npm run check:alignment",
-    "dev:full-monitor": "npm run check:all & npm run dev:auto-monitor"
+    "dev:full-monitor": "npm run check:all & npm run dev:auto-monitor",
+    "build:analyze": "ANALYZE=true npm run wheel:build",
+    "performance:test": "npm run test && npm run build:analyze",
+    "bundle:analyze": "npx @next/bundle-analyzer"
   },
   "private": true,
   "dependencies": {

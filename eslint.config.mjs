@@ -1,12 +1,14 @@
 import nx from '@nx/eslint-plugin';
 
-export default [
+const config = [
   ...nx.configs['flat/base'],
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
   {
     ignores: [
       '**/dist',
+      '**/.next/**',
+      '**/coverage/**',
       '**/vite.config.*.timestamp*',
       '**/vitest.config.*.timestamp*',
     ],
@@ -32,3 +34,5 @@ export default [
     rules: {},
   },
 ];
+
+export default config;

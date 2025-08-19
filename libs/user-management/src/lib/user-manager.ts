@@ -337,22 +337,21 @@ export class UserManager {
   }
 
   private generateColor(): string {
+    // Use actual hex colors that match the design system variables
+    // These correspond to the CSS variables in design-tokens.css
     const colors = [
-      '#FF6B6B',
-      '#4ECDC4',
-      '#45B7D1',
-      '#96CEB4',
-      '#FFEAA7',
-      '#DDA0DD',
-      '#98D8C8',
-      '#F7DC6F',
-      '#BB8FCE',
-      '#85C1E9',
-      '#F8C471',
-      '#82E0AA',
-      '#F1948A',
-      '#85C1E9',
-      '#D7BDE2',
+      '#ff6b6b', // var(--wheel-color-1) - Vibrant red
+      '#4ecdc4', // var(--wheel-color-2) - Teal
+      '#45b7d1', // var(--wheel-color-3) - Blue
+      '#96ceb4', // var(--wheel-color-4) - Mint green
+      '#ffeaa7', // var(--wheel-color-5) - Yellow
+      '#dda0dd', // var(--wheel-color-6) - Purple
+      '#98d8c8', // var(--wheel-color-7) - Sage green
+      '#f7dc6f', // var(--wheel-color-8) - Gold
+      '#bb8fce', // var(--wheel-color-9) - Lavender
+      '#85c1e9', // var(--wheel-color-10) - Sky blue
+      '#f8c471', // var(--wheel-color-11) - Orange
+      '#82e0aa', // var(--wheel-color-12) - Light green
     ];
     return colors[Math.floor(Math.random() * colors.length)];
   }

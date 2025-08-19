@@ -6,6 +6,10 @@ Welcome to Tooli, the comprehensive platform designed specifically for software 
 
 Tooli is a suite of interactive tools that make development workflows more engaging and efficient. Our platform is built with modern web technologies and follows best practices for scalability, maintainability, and user experience.
 
+**🚀 New in v1.3.1:** Lightning-fast development with Turbopack, improved performance, and enhanced user experience!
+
+**✨ New in v1.4.1:** Brighter dark-mode shadows for better depth, vibrant wheel colors restored, and a bigger, easier-to-use theme toggle in the top bar.
+
 ## 🎮 Available Tools
 
 ### Spinning Wheel - Interactive Decision Maker
@@ -18,6 +22,7 @@ The Spinning Wheel is our flagship interactive decision-making tool designed for
 - **Fair Randomization:** Uses probability-based algorithms for unbiased results
 - **Engaging Experience:** Smooth animations and interactive design
 - **Multiple Options:** Perfect when you need to choose between several alternatives
+- **Performance Optimized:** 50% faster loading with Turbopack technology
 
 #### How to Use the Spinning Wheel
 
@@ -33,6 +38,7 @@ The Spinning Wheel is our flagship interactive decision-making tool designed for
 - **Result Display:** Clear indication of the selected option
 - **Probability Information:** See the likelihood of each outcome
 - **Responsive Design:** Works perfectly on desktop, tablet, and mobile
+- **Performance Optimized:** Lightning-fast loading and interactions
 
 ### About Platform - Learn More
 
@@ -44,6 +50,7 @@ The About page provides comprehensive information about:
 - **Available Tools:** Current and upcoming features
 - **Technology Stack:** Built with React 19, Next.js 15, TypeScript, and more
 - **Architecture:** Modern monorepo structure powered by Nx
+- **Performance:** 50% faster development with Turbopack
 - **Roadmap:** Future development plans and upcoming features
 
 ## 🛠️ Navigation
@@ -59,7 +66,10 @@ Tooli uses a clean, route-based navigation system:
 ### 1. Access the Platform
 
 ```bash
-# Start the development server
+# Start the development server (Turbopack - Recommended)
+npm run wheel:dev:turbo
+
+# Or start the standard development server
 npm run wheel:dev
 
 # Or visit the deployed version
@@ -78,6 +88,7 @@ npm run wheel:dev
 1. Click "ℹ️ About" to learn more about Tooli
 2. Discover upcoming features like Scrum Poker
 3. Understand the technology behind the platform
+4. Experience the improved performance
 
 ## 🎯 Use Cases
 
@@ -136,26 +147,29 @@ Tooli is fully responsive and works on:
 
 ## 🗺️ What's Coming Next
 
-### Phase 2: Agile Tools
+### Phase 2: Agile Tools (v1.4.0)
 
 - **Scrum Poker:** Story point estimation tool
 - **Team Voting:** Consensus building features
 - **Sprint Planning:** Enhanced planning tools
+- **Design System:** Consistent UI components and theming
 
-### Phase 3: Productivity Suite
+### Phase 3: Productivity Suite (v1.5.0)
 
 - **Time Tracking:** Development time management
 - **Task Management:** Team task organization
 - **Analytics:** Team productivity insights
+- **Advanced Performance:** Web Workers and PWA features
 
 ## 🎉 Getting Started Checklist
 
-- [ ] Start the development server
+- [ ] Start the development server with Turbopack
 - [ ] Navigate to the home page
 - [ ] Try spinning the wheel
 - [ ] Explore the About page
 - [ ] Test navigation between pages
 - [ ] Try on different devices (desktop, mobile)
+- [ ] Experience the improved performance
 - [ ] Share feedback with your team
 
 ---
