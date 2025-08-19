@@ -18,11 +18,11 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@tooli/user-management": ["../../libs/user-management/dist/index.d.ts"],
-      "@tooli/history-tracker": ["../../libs/history-tracker/dist/index.d.ts"],
-      "@tooli/wheel-engine": ["../../libs/wheel-engine/dist/index.d.ts"],
-      "@tooli/audio-system": ["../../libs/audio-system/dist/index.d.ts"],
-      "@tooli/shared-ui": ["../../libs/shared-ui/dist/index.d.ts"]
+      "@tooli/user-management": ["../../libs/user-management/dist/index.js"],
+      "@tooli/history-tracker": ["../../libs/history-tracker/dist/index.js"],
+      "@tooli/wheel-engine": ["../../libs/wheel-engine/dist/index.js"],
+      "@tooli/audio-system": ["../../libs/audio-system/dist/index.js"],
+      "@tooli/shared-ui": ["../../libs/shared-ui/dist/index.js"]
     },
     "types": ["jest", "node"],
     "outDir": "dist",
