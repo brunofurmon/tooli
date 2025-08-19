@@ -28,7 +28,7 @@ export const Card: React.FC<CardProps> = ({
   };
 
   return (
-    <NextUICard 
+    <NextUICard
       className={`${paddingClasses[padding]} ${className}`}
       style={{
         borderRadius: '12px',

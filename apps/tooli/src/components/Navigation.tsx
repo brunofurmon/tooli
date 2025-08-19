@@ -93,8 +93,11 @@ export const Navigation: React.FC = () => {
               onValueChange={(checked) => setTheme(checked ? 'dark' : 'light')}
               size="md"
               color="primary"
-              startContent={<SunIcon />}
-              endContent={<MoonIcon />}
+              thumbIcon={theme === 'dark' ? <MoonIcon /> : <SunIcon />}
+              classNames={{
+                wrapper: "group-data-[selected=true]:bg-primary",
+                thumb: "bg-background",
+              }}
             />
           </div>
         </div>
