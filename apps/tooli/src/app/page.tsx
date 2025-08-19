@@ -11,6 +11,10 @@ import { HistoryTracker } from '@tooli/history-tracker';
 import { WheelSegment } from '@tooli/wheel-engine';
 
 export default function HomePage() {
+  // Set page title
+  useEffect(() => {
+    document.title = 'Tooli - Spin';
+  }, []);
   const [userManager] = useState(() => {
     const manager = new UserManager();
     // Pre-populate default users if none exist

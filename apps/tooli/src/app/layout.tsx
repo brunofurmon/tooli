@@ -3,7 +3,7 @@ import { Providers } from './providers';
 import './global.css';
 
 export const metadata: Metadata = {
-  title: 'Tooli - Team Decision Making Tools',
+  title: 'Tooli',
   description:
     'A collection of tools for team decision making, including spinning wheels, voting systems, and more.',
 };

@@ -1,8 +1,14 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect } from 'react';
 import { Navigation } from '../../components/Navigation';
 import { Card, CardHeader, CardBody } from '@heroui/react';
 
 export default function AboutPage() {
+  // Set page title
+  useEffect(() => {
+    document.title = 'Tooli - About';
+  }, []);
   return (
     <div
       style={{
